@@ -341,7 +341,39 @@ body{
     position: fixed;
     top: 278px;
     left: 600px;
-    z-index: 1;;
+    z-index: 1;
+}
+
+.air1{
+    height: 400px;
+    position: fixed;
+    top: 220px;
+    left: 400px;
+    z-index: 1;
+}
+
+.air2{
+    height: 400px;
+    position: fixed;
+    top: 180px;
+    left: 800px;
+    z-index: 1;
+}
+
+.air3{
+    height: 400px;
+    position: fixed;
+    top: 180px;
+    left: 830px;
+    z-index: 1;
+}
+
+.air4{
+    height: 400px;
+    position: fixed;
+    top: 180px;
+    left: 1300px;
+    z-index: 1;
 }
 
 .fanhead{

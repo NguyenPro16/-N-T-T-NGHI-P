@@ -444,6 +444,7 @@ document.getElementById('write').addEventListener('click', function(){
     var decVal = document.getElementById('DEC').value;
     var fanhead = document.getElementById("fanhead");
     var fanheadoff = document.getElementById("fanheadoff")
+    var flow = document.getElementById("flow")
 
     // Gửi dữ liệu mới qua Firebase
     database.ref("control").update({
@@ -483,9 +484,11 @@ document.getElementById('write').addEventListener('click', function(){
     if (rcmVal == 1) {
         fanhead.style.display = "none"
         fanheadoff.style.display = "block"   
+        flow.style.display = "none"
     } else {
         fanhead.style.display = "block"
-        fanheadoff.style.display = "none"
+        fanheadoff.style.display = "none" 
+        flow.style.display = "block"
     }
 });
 
