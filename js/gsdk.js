@@ -147,14 +147,16 @@ btnOn01.onclick = function(){
     document.getElementById("close_open_supply").src = "./img/on.png"  
     database.ref("Monitor/Status Valve 1").update({"data" : 1})
     database.ref("control").update({"van1" : 1})
-    valve1.style.display = "block"
+    // valve1.style.display = "block"
+    
 }
 
 btnOff01.onclick = function(){
     document.getElementById("close_open_supply").src = "./img/off.png" 
     database.ref("Monitor/Status Valve 1").update({"data" : 0})
     database.ref("control").update({"van1" : 0})
-    valve1.style.display = "none"
+    // valve1.style.display = "none"
+    
 }
 
 // //--------web to firebse------------funtion button 02----------------------------------
@@ -166,14 +168,15 @@ btnOn02.onclick = function(){
     document.getElementById("close_open_return").src = "./img/on.png"   
     database.ref("Monitor/Status Valve 2").update({"data" : 1})
     database.ref("control").update({"van2" : 1})
-    valve2.style.display = "block"
+    // valve2.style.display = "block"
+    
 }
 
 btnOff02.onclick = function(){
     document.getElementById("close_open_return").src = "./img/off.png" 
     database.ref("Monitor/Status Valve 2").update({"data" : 0})
     database.ref("control").update({"van2" : 0})
-    valve2.style.display = "none"
+    // valve2.style.display = "none"
 }
 
 //----------web to firebse---------funtion button 03----------------------------------
@@ -587,83 +590,31 @@ database.ref("Monitor/cam web/data").on("value", function(snapshot){
     }
 })
 
-
-// function function_hieuung() { 
-//     //Lắng nghe sự thay đổi của cả 3 van supply and return and bypass
-//     database.ref("Monitor/Status Valve 1/data").on("value", function(snapshot){
-//         var TTvalve1 = snapshot.val();
-//         database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
-//             var TTvalve2 = snapshot.val();
-//             database.ref("Monitor/Status Valve Bypass/data").on("value", function(snapshot){
-//                 var TTvalve3 = snapshot.val();
-//                 if(TTvalve1 == 1){
-//                     if(TTvalve2 == 1){
-//                         if(TTvalve3 == 1) {
-//                             // Trường hợp 3 valve Supply và Return và Bypass bật
-//                             valve1.style.display = "block"    
-//                             valve2.style.display = "block" 
-//                             valve3.style.display = "block"
-//                         } 
-//                         else {
-//                             // Trường hợp 2 valve Supply và Return bật
-//                             valve1.style.display = "block"    
-//                             valve2.style.display = "block" 
-//                             valve3.style.display = "none"
-//                         }
-//                     }
-//                 }
-//                 if(TTvalve1 == 1){
-//                     if(TTvalve2 == 0){
-//                         if(TTvalve3 == 1 ) {
-//                             // Trường hợp 2 valve Supply và Bypass bật, Return đóng
-//                             valve1.style.display = "block"    
-//                             valve2.style.display = "none" 
-//                             valve3.style.display = "block"
-//                         } 
-//                         else {
-//                             // Trường hợp 1 valve Supply bật
-//                             valve1.style.display = "block"    
-//                             valve2.style.display = "none" 
-//                             valve3.style.display = "none"
-//                         }
-//                     }
-//                 }
-//                 if(TTvalve1 == 0){
-//                     if(TTvalve2 == 1){
-//                         if(TTvalve3 == 1 ) {
-//                             // Trường hợp 2 valve Bypass và valve Return bật, valve Supply đóng
-//                             valve1.style.display = "none"    
-//                             valve2.style.display = "none" 
-//                             valve3.style.display = "block"
-//                         } 
-//                         else {
-//                             // Trường hợp 1 valve return bật
-//                             valve1.style.display = "none"    
-//                             valve2.style.display = "none" 
-//                             valve3.style.display = "none"
-//                         }
-//                     }
-//                 }
-//                 if(TTvalve1 == 0){
-//                     if(TTvalve2 == 0){
-//                         if(TTvalve3 == 1) {
-//                             // Trường hợp 1 valve Bypass bật, valve Supply và valve Return đóng
-//                             valve1.style.display = "none"    
-//                             valve2.style.display = "none" 
-//                             valve3.style.display = "block"
-//                         } 
-//                         else {
-//                             // Trường hợp 0 valve nào bật
-//                             valve1.style.display = "none"    
-//                             valve2.style.display = "none" 
-//                             valve3.style.display = "none"
-//                         }
-//                     }
-//                 }
-//             })
-//         })
-//     })
-// }
+//Lắng nghe sự thay đổi của cả 3 van supply and return and bypass
+database.ref("Monitor/Status Valve 1/data").on("value", function(snapshot){
+    var TTvalve1 = snapshot.val();
+    if (TTvalve1 == 1 ) {
+        valve1.style.display = "block"
+    } else {
+        valve1.style.display = "none"
+    }       
+})
+database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
+    var TTvalve2 = snapshot.val();
+    if (TTvalve2 == 1 ) {
+        valve2.style.display = "block"
+    } else {
+        valve2.style.display = "none"
+    }       
+})
+database.ref("Monitor/Status Valve Bypass/data").on("value", function(snapshot){
+    var TTvalve3 = snapshot.val();
+    if (TTvalve3 == 1 ) {
+        valve3.style.display = "block"
+    } else {
+        valve3.style.display = "none"
+    }       
+})    
 //--------------------------------------------ĐIENAP------------------------
 
 var opts_voltage = {
