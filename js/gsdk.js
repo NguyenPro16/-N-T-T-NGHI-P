@@ -147,7 +147,7 @@ btnOn01.onclick = function(){
     document.getElementById("close_open_supply").src = "./img/on.png"  
     database.ref("Monitor/Status Valve 1").update({"data" : 1})
     database.ref("control").update({"van1" : 1})
-    // valve1.style.display = "block"
+    valve1.style.display = "block"
     
 }
 
@@ -155,8 +155,7 @@ btnOff01.onclick = function(){
     document.getElementById("close_open_supply").src = "./img/off.png" 
     database.ref("Monitor/Status Valve 1").update({"data" : 0})
     database.ref("control").update({"van1" : 0})
-    // valve1.style.display = "none"
-    
+    valve1.style.display = "none"
 }
 
 // //--------web to firebse------------funtion button 02----------------------------------
@@ -168,7 +167,7 @@ btnOn02.onclick = function(){
     document.getElementById("close_open_return").src = "./img/on.png"   
     database.ref("Monitor/Status Valve 2").update({"data" : 1})
     database.ref("control").update({"van2" : 1})
-    // valve2.style.display = "block"
+    valve2.style.display = "block"
     
 }
 
@@ -176,7 +175,7 @@ btnOff02.onclick = function(){
     document.getElementById("close_open_return").src = "./img/off.png" 
     database.ref("Monitor/Status Valve 2").update({"data" : 0})
     database.ref("control").update({"van2" : 0})
-    // valve2.style.display = "none"
+    valve2.style.display = "none"
 }
 
 //----------web to firebse---------funtion button 03----------------------------------
@@ -402,7 +401,7 @@ document.getElementById('save').addEventListener('click', function(){
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
-        // valve3.style.display = "block"
+        valve3.style.display = "block"
         warning.style.display = "none"
     } else if(bypassVal >= 0 && bypassVal < 15) {
         database.ref("Monitor/Status Van Bypass").update({
@@ -411,13 +410,13 @@ document.getElementById('save').addEventListener('click', function(){
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
-        // valve3.style.display = "none"
+        valve3.style.display = "none"
         warning.style.display = "none"       
     }else{
         database.ref("Monitor/Status Van Bypass").update({
             "data": 3,
         });
-        // valve3.style.display = "none"
+        valve3.style.display = "none"
         warning.style.display = "block"      
     }  
 });
@@ -591,30 +590,30 @@ database.ref("Monitor/cam web/data").on("value", function(snapshot){
 })
 
 //Lắng nghe sự thay đổi của cả 3 van supply and return and bypass
-database.ref("Monitor/Status Valve 1/data").on("value", function(snapshot){
-    var TTvalve1 = snapshot.val();
-    if (TTvalve1 == 1 ) {
-        valve1.style.display = "block"
-    } else {
-        valve1.style.display = "none"
-    }       
-})
-database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
-    var TTvalve2 = snapshot.val();
-    if (TTvalve2 == 1 ) {
-        valve2.style.display = "block"
-    } else {
-        valve2.style.display = "none"
-    }       
-})
-database.ref("Monitor/Status Valve Bypass/data").on("value", function(snapshot){
-    var TTvalve3 = snapshot.val();
-    if (TTvalve3 == 1 ) {
-        valve3.style.display = "block"
-    } else {
-        valve3.style.display = "none"
-    }       
-})    
+// database.ref("Monitor/Status Valve 1/data").on("value", function(snapshot){
+//     var TTvalve1 = snapshot.val();
+//     if (TTvalve1 == 1 ) {
+//         valve1.style.display = "block"
+//     } else {
+//         valve1.style.display = "none"
+//     }       
+// })
+// database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
+//     var TTvalve2 = snapshot.val();
+//     if (TTvalve2 == 1 ) {
+//         valve2.style.display = "block"
+//     } else {
+//         valve2.style.display = "none"
+//     }       
+// })
+// database.ref("Monitor/Status Valve Bypass/data").on("value", function(snapshot){
+//     var TTvalve3 = snapshot.val();
+//     if (TTvalve3 == 1 ) {
+//         valve3.style.display = "block"
+//     } else {
+//         valve3.style.display = "none"
+//     }       
+// })    
 //--------------------------------------------ĐIENAP------------------------
 
 var opts_voltage = {
