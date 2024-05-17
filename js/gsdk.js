@@ -402,7 +402,7 @@ document.getElementById('save').addEventListener('click', function(){
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
-        valve3.style.display = "block"
+        // valve3.style.display = "block"
         warning.style.display = "none"
     } else if(bypassVal >= 0 && bypassVal < 15) {
         database.ref("Monitor/Status Van Bypass").update({
@@ -411,13 +411,13 @@ document.getElementById('save').addEventListener('click', function(){
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
-        valve3.style.display = "none"
+        // valve3.style.display = "none"
         warning.style.display = "none"       
     }else{
         database.ref("Monitor/Status Van Bypass").update({
             "data": 3,
         });
-        valve3.style.display = "none"
+        // valve3.style.display = "none"
         warning.style.display = "block"      
     }  
 });
