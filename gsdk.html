@@ -45,7 +45,34 @@
                 </div>
             </div>
             <div id="mohinh">
-                <img src="blob:https://lordicon.com/94e6f7c2-be8d-4f15-b51f-2fd913fd9c2d" alt="">
+                <div id="valve1">
+                    <div id="line-1-1"></div>
+                    <div id="line-1-2"></div>
+                    <div id="line-1-3"></div>
+                    <div id="line-1-4"></div> 
+                    <div id="line-1-5"></div>
+                    <div id="line-1-6"></div>
+                    <div id="line-1-7"></div>
+                    <div id="line-2-1"></div>
+                    <div id="line-2-2"></div>
+                    <div id="line-2-3"></div>
+                    <div id="line-2-4"></div>
+                </div>
+                <div id="valve2"> 
+                    <div id="line-2-5"></div>
+                    <div id="line-2-6"></div>
+                    <div id="line-2-7"></div>
+                    <div id="line-2-8"></div>
+                </div>
+                <div id="valve3">
+                    <div id="line-3-1"></div>
+                    <div id="line-3-2"></div>
+                    <div id="line-3-3"></div>
+                    <div id="line-3-4"></div>
+                    <div id="line-3-5"></div>
+                    <div id="line-3-6"></div>
+                    <div id="line-3-7"></div>               
+                </div>
                 <div class="gsnds">
                     <h2 >TempSupply</h2>
                     <h2 ><span id="nhietdosupply"></span> °C </h2>
@@ -81,12 +108,14 @@
                     <div class="btncontrol">
                         <button id="btnauto">AUTO</button>
                     </div>
+                    <div class="tempset" >  
+                        <label> TempSet:</label>
+                        <input type="number" id="tempset" placeholder="Enter"> 
+                        <button id="set">SET</button>
+                    </div>
+                    
                 </div>
                 <div class="gsdr">
-                    <h2 >  
-                        <label> TempSet:</label>
-                        <span id="nhietdoset"></span> 
-                    </h2>
                     <h2 >  
                         <label> TempRoom:</label>
                         <span id="nhietdodaura"></span> 
@@ -250,6 +279,11 @@
                                         <img class="icon-para-monitor" src="hinh\speed.png" alt="">
                                         <div id="value-speed-monitor" class="value-para-monitor"></div>
                                     </li>
+                                    <li class="para-monitor"onclick="function_power()">
+                                        <p class="title-para-monitor">Power</p>
+                                        <img class="icon-para-monitor_power" src="hinh\power.png" alt="">
+                                        <div id="value-power-monitor" class="value-para-monitor"></div>
+                                    </li>
                                 </ul>
                             </section>
                             <h2 id ="fan">FAN CONTROL</h2>
@@ -270,11 +304,13 @@
                                         </p>
                                     </div>
                                     <div class="block2">
-                                        
-                                            <label >Over Enable:</label>
-                                            <input type="number" id="Over_Enable">
-                                        
-                                        
+                                        <label >Over Enable:</label>
+                                        <div class="selectoverenablebientan">
+                                            <select class="overenablebientan" id="overenablebientan">
+                                                <option value="1">ON</option>
+                                                <option value="0">OFF</option>
+                                            </select>
+                                        </div>                                      
                                             <label >Over Value:</label>
                                             <input type="number" id="Over_Value">
                                         
@@ -282,12 +318,22 @@
                                     <div class="block3">
                                         <p>
                                             <label >LOCK:</label>
-                                            <input type="number" id="LOCK">
+                                            <div class="selectoverenablebientan">
+                                                <select class="lockbientan" id="locklebientan">
+                                                    <option value="1">UNLOCK</option>
+                                                    <option value="0">LOCK</option>
+                                                </select>
+                                            </div>
                                         </p>
                                         
                                         <p>
                                             <label >RCM:</label>
-                                            <input type="number" id="RCM">
+                                            <div class="selectoverenablebientan">
+                                                <select class="rcmbientan" id="rcmlebientan">
+                                                    <option value="1">STOP</option>
+                                                    <option value="2">RUN</option>
+                                                </select>
+                                            </div>
                                         </p>
                                         <p>
                                             <label >ACC:</label>
@@ -303,7 +349,7 @@
                                     </div>
                                     <div class="block4">
                                         <div class="header_support">
-                                            <h3>Suport</h3>
+                                            <h3>Support</h3>
                                         </div>
                                         <div class="body_support">
                                             <ul>LOCK (Parameter Lock):
@@ -348,34 +394,6 @@
                         </div>
                     </div>
                 </div>                
-            </div>
-            <div id="valve1">
-                <div id="line-1-1"></div>
-                <div id="line-1-2"></div>
-                <div id="line-1-3"></div>
-                <div id="line-1-4"></div> 
-                <div id="line-1-5"></div>
-                <div id="line-1-6"></div>
-                <div id="line-1-7"></div>
-                <div id="line-2-1"></div>
-                <div id="line-2-2"></div>
-                <div id="line-2-3"></div>
-                <div id="line-2-4"></div>
-            </div>
-            <div id="valve2"> 
-                <div id="line-2-5"></div>
-                <div id="line-2-6"></div>
-                <div id="line-2-7"></div>
-                <div id="line-2-8"></div>
-            </div>
-            <div id="valve3">
-                <div id="line-3-1"></div>
-                <div id="line-3-2"></div>
-                <div id="line-3-3"></div>
-                <div id="line-3-4"></div>
-                <div id="line-3-5"></div>
-                <div id="line-3-6"></div>
-                <div id="line-3-7"></div>               
             </div>
             <!-- -----------------------V-------------------------------------------------- -->
             <div id="giamsatdienap">
@@ -544,7 +562,7 @@
                         <div class="body-sheet">
                             <tr class="title-col-sheet">
                                 <th class="content-row-speed">Thời gian</th>
-                                <th class="content-row-speed">Tấn Số</th>
+                                <th class="content-row-speed">Tốc độ</th>
                             </tr>
                             <tr class="title-col-sheet">
                                 <td class="content-row-speed"></td>
@@ -586,6 +604,58 @@
                     <div id="frame-chart-speed" class="frame-chart">
                         <p id="frame-chart-speed-text" class="frame-chart-text">Chart Speed</p>
                         <canvas id="chart-speed" class="chart"></canvas>
+                    </div>
+                </div>              
+            </div>
+            <div id="giamsatcongsuat">
+                <div id="sheet-speed" class="sheet" >
+                    <p class="report" onclick="open_sheet()">Report</p>
+                    <table id="table-sheet-power" class="table-sheet">
+                        <div class="body-sheet">
+                            <tr class="title-col-sheet">
+                                <th class="content-row-power">Thời gian</th>
+                                <th class="content-row-power">Công suất</th>
+                            </tr>
+                            <tr class="title-col-sheet">
+                                <td class="content-row-power"></td>
+                                <td class="content-row-power"></td>
+                            </tr>
+                            <tr class="title-col-sheet">
+                                <td class="content-row-power"></td>
+                                <td class="content-row-power"></td>
+                            </tr>
+                            <tr class="title-col-sheet">
+                                <td class="content-row-power"></td>
+                                <td class="content-row-power"></td>
+                            </tr>
+                            <tr class="title-col-sheet">
+                                <td class="content-row-power"></td>
+                                <td class="content-row-power"></td>
+                            </tr>
+                            <tr class="title-col-sheet">
+                                <td class="content-row-power"></td>
+                                <td class="content-row-power"></td>
+                            </tr>
+                            <tr class="title-col-sheet">
+                                <td class="content-row-power"></td>
+                                <td class="content-row-power"></td>
+                            </tr>
+                            <tr class="title-col-sheet">
+                                <td class="content-row-power"></td>
+                                <td class="content-row-power"></td>
+                            </tr>
+                        </div>
+                    </table>
+                </div>
+                <div id="frame-gauge-power" class="frame-gauge">
+                    <p id="frame-gauge-power-text" class="frame-gauge-text">Gauge Power</p>
+                    <canvas id="gauge-power" class="gauge"></canvas>
+                    <div id="power" class="value"></div>
+                </div>
+                <div id="power-monitor">
+                    <div id="frame-chart-power" class="frame-chart">
+                        <p id="frame-chart-power-text" class="frame-chart-text">Chart Power</p>
+                        <canvas id="chart-power" class="chart"></canvas>
                     </div>
                 </div>              
             </div>

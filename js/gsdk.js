@@ -211,34 +211,34 @@ database.ref("control/over enable ao2").on("value", function(snapshot){
 })
 
 function updateFirebase() {
-    var select = document.getElementById('overenable').value;    
-        database.ref("control").update({"over enable ao2" : select})
+    var selectvalve = document.getElementById('overenable').value;    
+        database.ref("control").update({"over enable ao2" : selectvalve})
   }
 // get fan from firebase (auto update when data change)
 database.ref("Monitor/Voltage/data").on("value", function(snapshot){
     var Voltage = snapshot.val();
     document.getElementById("value-voltage-monitor").innerHTML = Voltage + " V";
-    document.getElementById("volt").innerHTML = Voltage + " V";
+    // document.getElementById("volt").innerHTML = Voltage + " V";
 })
 
 database.ref("Monitor/Curent/data").on("value", function(snapshot){
     var Current = snapshot.val();
     document.getElementById("value-current-monitor").innerHTML = Current + " A";
 })
-// var fanhead = document.getElementById("fanhead")
+
 database.ref("Monitor/Frequency/data").on("value", function(snapshot){
     var Frequency = snapshot.val();
     document.getElementById("value-frequency-monitor").innerHTML = Frequency + " Hz";
-    // if (Frequency == 0) {
-    //     fanhead.style.display = "none"
-    // } else {
-    //     fanhead.style.display = "block"
-    // }
 })
 
 database.ref("Monitor/RPM/data").on("value", function(snapshot){
     var Speed = snapshot.val();
     document.getElementById("value-speed-monitor").innerHTML = Speed + " rpm";
+})
+
+database.ref("Monitor/Power/data").on("value", function(snapshot){
+    var Power = snapshot.val();
+    document.getElementById("value-power-monitor").innerHTML = Power + " W";
 })
 
 // get Tempsupply from firebase (auto update when data change)
@@ -285,7 +285,7 @@ database.ref("Monitor/Pressure Return/data").on("value", function(snapshot){
 
 // Xác định một hàm để kiểm tra điều kiện và cập nhật giao diện người dùng
 // Xác định một hàm để kiểm tra điều kiện và cập nhật giao diện người dùng
-function checkTemperature() {
+function checkTemperaturein() {
     var TempOut = document.getElementById("nhietdodaura").textContent;
     var setVal = document.getElementById('Set_Point').value;
     var warningElement = document.getElementById('canhbaonhietdo');
@@ -301,17 +301,37 @@ function checkTemperature() {
     }
 }
 
+function checkTemperatureout() {
+    var TempOut = document.getElementById("nhietdodaura").textContent;
+    var warningElement = document.getElementById('canhbaonhietdo');
+    var tempsetVal = document.getElementById('tempset').value;
+
+    if (tempsetVal < TempOut ) {
+        warningElement.textContent = 'Nhiệt độ chưa đạt yêu cầu';
+        warningElement.style.color = 'red';
+        warningElement.classList.add('blink');
+    } else {
+        warningElement.textContent = 'Nhiệt độ đạt yêu cầu';
+        warningElement.style.color = 'green';
+        warningElement.classList.remove('blink');
+    }
+}
+
 // Gọi hàm checkTemperature mỗi khi giá trị của setVal thay đổi
 database.ref("Monitor/Temperature Room/data").on("value", function(snapshot){
     var TempOut = snapshot.val();
     document.getElementById("nhietdodaura").innerHTML = TempOut + " °C";
 
-    checkTemperature(); // Gọi hàm kiểm tra điều kiện
+    checkTemperaturein(); // Gọi hàm kiểm tra điều kiện
 });
 
 // Gọi hàm checkTemperature mỗi khi giá trị của trường nhập liệu 'Set_Point' thay đổi
 document.getElementById('Set_Point').addEventListener('change', function() {
-    checkTemperature(); // Gọi hàm kiểm tra điều kiện
+    checkTemperaturein(); // Gọi hàm kiểm tra điều kiện
+});
+
+document.getElementById('tempset').addEventListener('change', function() {
+    checkTemperatureout(); // Gọi hàm kiểm tra điều kiện
 });
 
 
@@ -321,11 +341,12 @@ document.getElementById('Set_Point').addEventListener('change', function() {
 //     element.classList.toggle('blink');
 // }, 1000);
 
-// get setVal from firebase (auto update when data change)
-database.ref("control/set temp").on("value", function(snapshot){
-    var settempVal = snapshot.val();
-    document.getElementById("nhietdoset").innerHTML = settempVal + " °C";
-})
+// get tempsetVal from firebase (auto update when data change)
+// database.ref("control/set temp").on("value", function(snapshot){
+//     var tempsetVal = snapshot.val();
+//     document.getElementById("tempset").innerHTML = tempsetVal;
+// })
+
 
 // get HumOut from firebase (auto update when data change)
 database.ref("Monitor/CPS-A/data").on("value", function(snapshot){
@@ -436,10 +457,10 @@ document.getElementById('write').addEventListener('click', function(){
     var minVal = document.getElementById('Min_Value').value;
     var maxVal = document.getElementById('Max_Value').value;
     var setVal = document.getElementById('Set_Point').value;
-    var overEnableVal = document.getElementById('Over_Enable').value;
+    var selectoveranable = document.getElementById('overenablebientan').value;
     var overValueVal = document.getElementById('Over_Value').value;
-    var lockVal = document.getElementById('LOCK').value;
-    var rcmVal = document.getElementById('RCM').value;
+    var selectlock = document.getElementById('locklebientan').value;
+    var selectrcm = document.getElementById('rcmlebientan').value;
     var accVal = document.getElementById('ACC').value;
     var decVal = document.getElementById('DEC').value;
     var fanhead = document.getElementById("fanhead");
@@ -451,37 +472,56 @@ document.getElementById('write').addEventListener('click', function(){
         "min ao1": minVal,
         "max ao1": maxVal,
         "set temp": setVal,
-        "over enable ao1": overEnableVal,
+        "over enable ao1" : selectoveranable,
         "over value ao1": overValueVal,
-        "lock": lockVal,
-        "run cm": rcmVal,
+        "lock" : selectlock,
+        "run cm" : selectrcm,
         "acc": accVal,
         "dec": decVal
     });
 
     // Kiểm tra giá trị của LOCK và hiển thị thông báo phù hợp
-    if (lockVal === "0" || lockVal === "1" ) {
-        document.getElementById('out_note_lock').textContent = '';
-    } else {
-        document.getElementById('out_note_lock').textContent = 'Giá trị LOCK không hợp lệ';
-        document.getElementById('out_note_lock').style.color = 'red';
-    }
+    // if (lockVal === "0" || lockVal === "1" ) {
+    //     document.getElementById('out_note_lock').textContent = '';
+    // } else {
+    //     document.getElementById('out_note_lock').textContent = 'Giá trị LOCK không hợp lệ';
+    //     document.getElementById('out_note_lock').style.color = 'red';
+    // }
 
-    if (rcmVal === "1" || rcmVal === "2" || rcmVal === "4") {
-        document.getElementById('out_note_rcm').textContent = '';
-    } else {
-        document.getElementById('out_note_rcm').textContent = 'Giá trị Run Command không hợp lệ';
-        document.getElementById('out_note_rcm').style.color = 'red';
-    }
+    // if (rcmVal === "1" || rcmVal === "2" || rcmVal === "4") {
+    //     document.getElementById('out_note_rcm').textContent = '';
+    // } else {
+    //     document.getElementById('out_note_rcm').textContent = 'Giá trị Run Command không hợp lệ';
+    //     document.getElementById('out_note_rcm').style.color = 'red';
+    // }
 
-    if (overEnableVal === "0" || overEnableVal === "1" ) {
-        document.getElementById('out_note_overenable').textContent = '';
-    } else {
-        document.getElementById('out_note_overenable').textContent = 'Giá trị Over Enable không hợp lệ';
-        document.getElementById('out_note_overenable').style.color = 'red';
-    }
+    // if (overEnableVal === "0" || overEnableVal === "1" ) {
+    //     document.getElementById('out_note_overenable').textContent = '';
+    // } else {
+    //     document.getElementById('out_note_overenable').textContent = 'Giá trị Over Enable không hợp lệ';
+    //     document.getElementById('out_note_overenable').style.color = 'red';
+    // }
     // Kiểm tra giá trị fan
-    if (rcmVal == 1) {
+    // if (rcmVal == 1) {
+    //     fanhead.style.display = "none"
+    //     fanheadoff.style.display = "block"   
+    //     flow.style.display = "none"
+    // } else {
+    //     fanhead.style.display = "block"
+    //     fanheadoff.style.display = "none" 
+    //     flow.style.display = "block"
+    // }
+    // var selectoveranable = document.getElementById('overenablebientan').value;    
+    // database.ref("control").update({"over enable ao1" : selectoveranable})
+    // var selectlock = document.getElementById('locklebientan').value;    
+    //     database.ref("control").update({"lock" : selectlock})
+    // var selectrcm = document.getElementById('rcmlebientan').value;    
+    //     database.ref("control").update({"run cm" : selectrcm})
+    //     // Kiểm tra giá trị fan
+    // var fanhead = document.getElementById("fanhead");
+    // var fanheadoff = document.getElementById("fanheadoff")
+    // var flow = document.getElementById("flow")
+        if (selectrcm == 1) {
         fanhead.style.display = "none"
         fanheadoff.style.display = "block"   
         flow.style.display = "none"
@@ -492,12 +532,33 @@ document.getElementById('write').addEventListener('click', function(){
     }
 });
 
+// Lắng nghe sự kiện khi người dùng nhấn nút "Set"
+document.getElementById('set').addEventListener('click', function(){
+    // Lấy giá trị từ các input
+    var tempsetVal = document.getElementById('tempset').value;
+    // Gửi dữ liệu mới qua Firebase
+    if (tempsetVal >= 0 && tempsetVal <= 50) {
+        warning.style.display = "none"
+        database.ref("control").update({
+            "set temp": tempsetVal
+        });
+    }else{
+        warning.style.display = "block"      
+    }
+});
+// get tempsetVal from firebase (auto update when data change)
+database.ref("control/set temp").on("value", function(snapshot){
+    var tempset = snapshot.val();
+    document.getElementById("tempset").innerHTML = tempset;
+})
+
  //--------------------------biến--------------
  var mohinh = document.getElementById("mohinh");
  var giamsatdienap = document.getElementById("giamsatdienap");
  var giamsatdongdien = document.getElementById("giamsatdongdien");
  var giamsattanso = document.getElementById("giamsattanso");
  var giamsattocdo = document.getElementById("giamsattocdo");
+ var giamsatcongsuat = document.getElementById("giamsatcongsuat");
  var valve1 = document.getElementById("valve1");
  var valve2 = document.getElementById("valve2");
  var valve3 = document.getElementById("valve3");
@@ -522,9 +583,7 @@ function function_voltage() {
     giamsatdongdien.style.display = "none";
     giamsattanso.style.display = "none"
     giamsattocdo.style.display = "none"   
-    valve1.style.display = "none"  
-    valve2.style.display = "none"  
-    valve3.style.display = "none"    
+    giamsatcongsuat.style.display = "none"     
 }
 function function_gsdk() {        
     mohinh.style.display = "block";
@@ -532,9 +591,7 @@ function function_gsdk() {
     giamsatdongdien.style.display = "none";
     giamsattanso.style.display = "none"
     giamsattocdo.style.display = "none" 
-    valve1.style.display = "block"    
-    valve2.style.display = "block" 
-    valve3.style.display = "block"        
+    giamsatcongsuat.style.display = "none"       
 }
 function function_current() {        
     mohinh.style.display = "none";
@@ -542,29 +599,32 @@ function function_current() {
     giamsatdongdien.style.display = "block";
     giamsattanso.style.display = "none"
     giamsattocdo.style.display = "none" 
-    valve1.style.display = "none"   
-    valve2.style.display = "none" 
-    valve3.style.display = "none"        
+    giamsatcongsuat.style.display = "none"    
 }
 function function_frequency() {        
     mohinh.style.display = "none";
     giamsatdienap.style.display = "none";
     giamsatdongdien.style.display = "none";
     giamsattanso.style.display = "block" 
-    giamsattocdo.style.display = "none"    
-    valve1.style.display = "none" 
-    valve2.style.display = "none"   
-    valve3.style.display = "none"    
+    giamsattocdo.style.display = "none"   
+    giamsatcongsuat.style.display = "none"    
 }
 function function_speed() {        
     mohinh.style.display = "none";
     giamsatdienap.style.display = "none";
     giamsatdongdien.style.display = "none";
     giamsattanso.style.display = "none"
-    giamsattocdo.style.display = "block"    
-    valve1.style.display = "none"    
-    valve2.style.display = "none"
-    valve3.style.display = "none"    
+    giamsattocdo.style.display = "block"
+    giamsatcongsuat.style.display = "none"      
+}
+
+function function_power() {        
+    mohinh.style.display = "none";
+    giamsatdienap.style.display = "none";
+    giamsatdongdien.style.display = "none";
+    giamsattanso.style.display = "none"
+    giamsattocdo.style.display = "none"  
+    giamsatcongsuat.style.display = "block"     
 }
 
 var khoaweb = document.getElementById("khoaweb")
@@ -1093,7 +1153,7 @@ var j = 0;
             var time = new Date().toLocaleTimeString();
             const speedVal = chart_speed.data.datasets[0].data[chart_speed.data.datasets[0].data.length - 1]
             const data = getArr(chart_speed.data.datasets[0].data, speedVal)
-            const labels = getArr(chart_frequency.data.labels, time)
+            const labels = getArr(chart_speed.data.labels, time)
             chart_speed.data.labels = labels
             chart_speed.data.datasets[0].data = data
             chart_speed.update();
@@ -1138,7 +1198,136 @@ var j = 0;
             content_row_speed[15].innerHTML = value_speed[6] + " rpm";
         }, 1000);
     });   
+// ----------------------------------------CONGSUAT---------------------------------------------------------
+var opts_power = {
+    angle: -0.2,
+    lineWidth: 0.2,
+    radiusScale: 1,
+    pointer: {
+        length: 0.6,
+        strokeWidth: 0.04,
+        color: '#000000'
+    },
+    renderTicks: false,
+    limitMax: false,
+    limitMin: false,
+    percentColors: [[0.0, "#a9d70b"], [0.50, "#f9c802"], [1.0, "#ff0000"]],
+    strokeColor: '#E0E0E0',
+    generateGradient: true
+};
+
+var power = document.getElementById('chart-power').getContext('2d');
+var chart_power = new Chart(power, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Power',
+            data: [],
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 3,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            duration: 0
+        },
+        scales: {
+            // x: {
+            //     type: 'time',
+            //     time: {
+            //         displayFormats: {
+            //             second: 'h:mm:ss a'
+            //         }
+            //     }
+            // },
+            y: {
+                min: 0,
+                max: 1000,
+                ticks: {
+                    stepSize: 50
+                }
+            }
+        }
+    }
+});
+
+var content_row_power = document.querySelectorAll(".content-row-power");
+var time_power = [];
+var value_power = [];
+var j = 0;
+    database.ref("Monitor/Power/data").on("value", function (snapshot) {
+        //----------------------------- Gauge ----------------------------
+        var power_out = snapshot.val();
+        document.getElementById("power").innerHTML = power_out + " W";    
+        
+        var target_power = document.getElementById('gauge-power'); // your canvas element
+        var ctx = target_power.getContext('2d');
+        var gauge_power = new Gauge(target_power).setOptions(opts_power); // create sexy gauge!
+        gauge_power.animationSpeed = 32;
     
+        gauge_power.maxValue = 2000; // set max gauge value
+        gauge_power.set(power_out);
+        //----------------------------- Chart ----------------------------
+        var time = new Date().toLocaleTimeString();
+        const data = getArr(chart_power.data.datasets[0].data, power_out);
+        const labels = getArr(chart_power.data.labels, time);
+        chart_power.data.labels = labels
+        chart_power.data.datasets[0].data = data
+        chart_power.update();
+        
+        interval = setInterval(() => {
+            var time = new Date().toLocaleTimeString();
+            const powerVal = chart_power.data.datasets[0].data[chart_power.data.datasets[0].data.length - 1]
+            const data = getArr(chart_power.data.datasets[0].data, powerVal)
+            const labels = getArr(chart_power.data.labels, time)
+            chart_power.data.labels = labels
+            chart_power.data.datasets[0].data = data
+            chart_power.update();
+        }, 1000);
+
+        interval = setInterval(() => {
+            var time_now = new Date();
+            if (j <= 6) {
+                time_power[j] = time_now.getHours() + ":" + time_now.getMinutes() + ":" + time_now.getSeconds();
+                value_power[j] = power_out;
+                j++;
+            }
+            else {
+                time_power[0] = time_power[1];
+                value_power[0] = value_power[1];
+                time_power[1] = time_power[2];
+                value_power[1] = value_power[2];
+                time_power[2] = time_power[3];
+                value_power[2] = value_power[3];
+                time_power[3] = time_power[4];
+                value_power[3] = value_power[4];
+                time_power[4] = time_power[5];
+                value_power[4] = value_power[5];
+                time_power[5] = time_power[6];
+                value_power[5] = value_power[6];
+                time_power[6] = time_now.getHours() + ":" + time_now.getMinutes() + ":" + time_now.getSeconds();
+                value_power[6] = power_out;
+            }
+            content_row_power[2].innerHTML = time_power[0];
+            content_row_power[3].innerHTML = value_power[0] + " W";
+            content_row_power[4].innerHTML = time_power[1];
+            content_row_power[5].innerHTML = value_power[1] + " W";
+            content_row_power[6].innerHTML = time_power[2];
+            content_row_power[7].innerHTML = value_power[2] + " W";
+            content_row_power[8].innerHTML = time_power[3];
+            content_row_power[9].innerHTML = value_power[3] + " W";
+            content_row_power[10].innerHTML = time_power[4];
+            content_row_power[11].innerHTML = value_power[4] + " W";
+            content_row_power[12].innerHTML = time_power[5];
+            content_row_power[13].innerHTML = value_power[5] + " W";
+            content_row_power[14].innerHTML = time_power[6];
+            content_row_power[15].innerHTML = value_power[6] + " W";
+        }, 1000);
+    });    
 
 
 

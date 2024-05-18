@@ -433,7 +433,7 @@ body{
     width: 382px;
     background: #074c95;
     position: fixed;
-    top: 300px;
+    top: 250px;
     left: 50px;
     font-size: 20px;
     border-radius: 10px;
@@ -473,20 +473,59 @@ body{
 
 .manual{
     position: fixed;
-    top: 420px;
+    top: 370px;
     left: 172px;
 }
 
 .off{
     position: fixed;
-    top: 420px;
+    top: 370px;
     left: 282px;
 }
 
 .auto{
     position: fixed;
-    top: 420px;
+    top: 370px;
     left: 408px;
+}
+
+.controlmode .tempset{
+    background: white;
+    border: 2px solid #074c95;
+    color: #074c95;
+    font-size: 30px; 
+    padding: 10px 0px 45px 0px; 
+    border-radius: 10px; 
+}
+
+.tempset label{
+    width: 150px;
+    height: 35px;
+    font-size: 30px;
+    position: fixed;
+    top: 440px;
+    left: 60px;
+}
+
+.tempset input{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 150px;
+    height: 35px;
+    font-size: 32px;
+    position: fixed;
+    top: 435px;
+    left: 200px;
+}
+
+.tempset button{
+    font-size: 20px;
+    border-radius: 6px;
+    padding: 5px 10px;  
+    position: fixed;
+    top: 433px;
+    left: 360px;
+    cursor: pointer;
 }
 /* -------------------------------------- */
 .gsnds{
@@ -732,6 +771,13 @@ body{
     font-size: 20px;
 }
 
+.selectoverenablebientan select{  
+    
+    width: 180px;
+    height: 35px;
+    font-size: 20px;
+}
+
 .nhapgiatribypass input{
     border: 2px solid black;
     border-radius: 5px;
@@ -857,7 +903,6 @@ body{
 
 .hide{
     display: none;
-
 }
 
 .modal_inner_fan{  
@@ -899,12 +944,13 @@ body{
 }
 
 .para-monitor{
+    margin-left: 55px;
     list-style: none;
-    width: 15%;
+    width: 14%;
     height: 150px;
     display: inline-block;
     vertical-align: top;
-    margin: 0 4.7% ;
+    /* margin: 0 2.5% ; */
     text-align: center;
     justify-content: center;
     border-radius: 20px;
@@ -1031,6 +1077,11 @@ body{
     padding-top: 5px;
 }
 
+.icon-para-monitor_power{
+    width: 60px;
+    padding-top: 5px;
+}
+
 .value-para-monitor{
     font-size: 30px;
     padding-top: 10px;
@@ -1090,6 +1141,14 @@ body{
 }
 
 .content-row-speed{
+    padding: 5px 10px;
+    font-size: 15px;
+    width: 500px;
+    text-align: center;
+    
+}
+
+.content-row-power{
     padding: 5px 10px;
     font-size: 15px;
     width: 500px;
