@@ -325,21 +325,21 @@ body{
 
 .pipethang1-4{
     position: fixed;
-    top: 457px;
+    top: 417px;
     left: 1035px;
     z-index: 1;
 }
 
 .pipethang2-4{
     position: fixed;
-    top: 458px;
+    top: 418px;
     left: 1082px;
     z-index: 1;
 }
 
 .ahu{
     position: fixed;
-    top: 278px;
+    top: 238px;
     left: 600px;
     z-index: 1;
 }
@@ -347,7 +347,7 @@ body{
 .air1{
     height: 400px;
     position: fixed;
-    top: 220px;
+    top: 180px;
     left: 400px;
     z-index: 1;
 }
@@ -355,7 +355,7 @@ body{
 .air2{
     height: 400px;
     position: fixed;
-    top: 180px;
+    top: 140px;
     left: 800px;
     z-index: 1;
 }
@@ -363,7 +363,7 @@ body{
 .air3{
     height: 400px;
     position: fixed;
-    top: 180px;
+    top: 140px;
     left: 830px;
     z-index: 1;
 }
@@ -371,7 +371,7 @@ body{
 .air4{
     height: 400px;
     position: fixed;
-    top: 180px;
+    top: 140px;
     left: 1300px;
     z-index: 1;
 }
@@ -379,7 +379,7 @@ body{
 .fanhead{
     width: 52px;
     position: fixed;
-    top: 364px;
+    top: 324px;
     left: 1315px;
     z-index: 1;;
 }
@@ -387,14 +387,14 @@ body{
 .fanheadoff{
     width: 60px;
     position: fixed;
-    top: 364px;
+    top: 324px;
     left: 1312px;
     z-index: 1;;
 }
 
 .pipethang1-5{
     position: fixed;
-    top: 342px;
+    top: 302px;
     left: 1600px;
     z-index: 1;
 }
@@ -402,14 +402,14 @@ body{
 .co3{
     transform: rotate(-90deg);
     position: fixed;
-    top: 358px;
+    top: 318px;
     left: 1672px;
     z-index: 1;
 }
 
 .pipethang1-6{
     position: fixed;
-    top: 395px;
+    top: 355px;
     left: 1665px;
     z-index: 1;
 }
@@ -503,7 +503,7 @@ body{
     height: 35px;
     font-size: 30px;
     position: fixed;
-    top: 440px;
+    top: 435px;
     left: 60px;
 }
 
@@ -583,7 +583,33 @@ body{
 }
 
 
-.gsdr{
+.gsnddr{
+    width: 250px;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    background:#074c95;
+    border-radius: 9px;
+    border: 2px solid #074c95;
+    position: fixed;
+    top: 530px;
+    left: 1150px;
+    line-height: 1.6;
+}
+
+.gsnddr h2 span{
+    float: right;
+}
+
+.gsnddr .canhbao{
+    font-size: 20px;
+    background: white;
+    border-radius: 9px;
+    justify-content: center;
+    text-align: center;
+}
+
+.gsdadr{
     width: 250px;
     justify-content: center;
     font-size: 16px;
@@ -593,15 +619,17 @@ body{
     border-radius: 9px;
     border: 2px solid #074c95;
     position: fixed;
-    top: 580px;
+    top: 650px;
     left: 1150px;
     line-height: 1.6;
 }
 
-.gsdr .canhbao{
+.gsdadr .canhbao{
     font-size: 20px;
     background: white;
     border-radius: 9px;
+    justify-content: center;
+    text-align: center;
 }
 
 .giamsatchenhap{
@@ -614,9 +642,31 @@ body{
     border-radius: 9px;
     /* border: 2px solid red; */
     position: fixed;
-    top: 240px;
+    top: 440px;
     left: 700px;
     line-height: 1.6;
+}
+
+.frame_gauge_only_filter{
+    background-color: white;
+    border: 2px solid #074c95;
+    border-radius: 10px;
+}
+
+.gauge_only_filter{
+    width: 100px;
+    height: 50px;
+    z-index: 2;
+    display: flex;
+}
+
+.filter_text{
+    z-index: 1;
+    position: fixed;
+    top: 480px;
+    left: 810px;
+    font-size: 30px;
+
 }
 
 .open_modal_btn{
@@ -943,6 +993,26 @@ body{
     
 }
 
+/* #giamsatdienap{
+    display: none;
+}
+
+#giamsatdongdien{
+    display: none;
+}
+
+#giamsattanso{
+    display: none;
+}
+
+#giamsattocdo{
+    display: none;
+}
+
+#giamsatcongsuat{
+    display: none;
+} */
+
 .para-monitor{
     margin-left: 55px;
     list-style: none;
@@ -1176,6 +1246,8 @@ body{
     height: 250px;
 }
 
+
+
 .value{
     color: black;
     background: white;
@@ -1325,7 +1397,7 @@ body{
     width: 22px;
     height: 50px;
     position: absolute;
-    top: 498px; /* Vị trí dọc của đường thẳng */
+    top: 478px; /* Vị trí dọc của đường thẳng */
     left: 1052px; /* Vị trí ngang ban đầu của đường thẳng */
     animation: flow-bottomtotop 2s linear infinite; /* Animation để di chuyển đường thẳng */
     z-index: 2;
@@ -1337,7 +1409,7 @@ body{
     width: 22px;
     height: 50px;
     position: absolute;
-    top: 500px; /* Vị trí dọc của đường thẳng */
+    top: 460px; /* Vị trí dọc của đường thẳng */
     left: 1100px; /* Vị trí ngang ban đầu của đường thẳng */
     animation: flow-toptobottom 2s linear infinite; /* Animation để di chuyển đường thẳng */
     z-index: 2;
@@ -1349,7 +1421,7 @@ body{
     width: 22px;
     height: 50px;
     position: absolute;
-    top: 600px; /* Vị trí dọc của đường thẳng */
+    top: 580px; /* Vị trí dọc của đường thẳng */
     left: 1100px; /* Vị trí ngang ban đầu của đường thẳng */
     animation: flow-toptobottom 2s linear infinite; /* Animation để di chuyển đường thẳng */
     z-index: 2;

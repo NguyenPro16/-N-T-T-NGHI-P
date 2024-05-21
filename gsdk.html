@@ -110,24 +110,38 @@
                     </div>
                     <div class="tempset" >  
                         <label> TempSet:</label>
-                        <input type="number" id="tempset" placeholder="Enter"> 
+                        <input type="number" id="tempset"> 
                         <button id="set">SET</button>
                     </div>
                     
                 </div>
-                <div class="gsdr">
+                <div class="gsnddr">
                     <h2 >  
+                        <label> TempSet:</label>
+                        <span id="nhietdoset"></span> 
                         <label> TempRoom:</label>
                         <span id="nhietdodaura"></span> 
                     </h2>
                     <div class="canhbao" id="canhbaonhietdo"></div>
+                </div>
+                <div class="gsdadr">
+                    <h2 >  
+                        <label> HumRoom:</label>
+                        <span id="doamdaura"></span> 
+                    </h2>
+                    <div class="canhbao" id="canhbaodoam"></div>
                 </div>
                 <div class="giamsatchenhap">
                     <h2 >  
                         <label>PressDiff:</label>
                         <span id="chenhap"></span> 
                     </h2>
+                    <div id="frame-gauge-filter" class="frame_gauge_only_filter">
+                        <canvas id="gauge-filter" class="gauge_only_filter"></canvas>
+                        <div id="filter" class="filter_text">Bit durty</div>
+                    </div>                   
                 </div>
+                
                 <img class="chiller" src="hinh\chiller.png" alt="" width="400px">
                 <img class="pipe1" src="hinh\pipe1.png" alt="ống" width="220px">
                 <img class="pipe2" src="hinh\pipe2.png" alt="ống"width="220px">
@@ -227,8 +241,8 @@
                 <img class="pipethang2-3" src="hinh\pipethang.png" alt="" height="58px" width="120px">
                 <img class="co1" src="hinh\co.png" alt="" height="37px">
                 <img class="co2" src="hinh\co.png" alt="" height="37px" >
-                <img class="pipethang1-4" src="hinh\pipethangdung.png" alt="" width="58px" height="200px">
-                <img class="pipethang2-4" src="hinh\pipethangdung.png" alt="" width="58px" height="329px">
+                <img class="pipethang1-4" src="hinh\pipethangdung.png" alt="" width="58px" height="240px">
+                <img class="pipethang2-4" src="hinh\pipethangdung.png" alt="" width="58px" height="369px">
                 <img class="ahu" src="hinh\ahu.png" alt="" >
                 <div id="flow">
                     <img src="hinh\air1.gif" alt=""  class="air1">
@@ -439,7 +453,7 @@
                 <div id="frame-gauge-voltage" class="frame-gauge">
                     <p id="frame-gauge-voltage-text" class="frame-gauge-text">Gauge Voltage</p>
                     <canvas id="gauge-voltage" class="gauge"></canvas>
-                    <div id="volt" class="value"></div>
+                    <div id="voltage" class="value"></div>
                 </div>
                 <div id="voltage-monitor">
                     <div id="frame-chart-voltage" class="frame-chart">
