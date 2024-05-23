@@ -56,9 +56,9 @@ modal_bypass.addEventListener('click', function(e) {
     }
 })
 // Gọi hàm function_gsdk ngay khi trang web được tải lên
-setTimeout(function() {
-    function_gsdk();
-}, 2000);
+// setTimeout(function() {
+//     function_gsdk();
+// }, 5000);
 // -------------------------modal_fan-------------------------------------
 var btnopen_fan = document.querySelector('.open_fan')
 var modal_fan = document.querySelector('.modal_fan')
@@ -135,6 +135,8 @@ database.ref("Monitor/TT Auto/data").on("value", function(snapshot){
         document.getElementById("manualid").src = "./img/off.png" 
         document.getElementById("offid").src = "./img/off.png"  
         document.getElementById("autoid").src = "./img/on.png"
+        document.querySelectorAll('.open_modal_btn').disabled = true
+        document.querySelector(".open_modal_btnbypass").disabled = true
     } 
 })
 
@@ -147,16 +149,13 @@ var btnOff01 = document.getElementById("btnOffId_01");
 btnOn01.onclick = function(){
     document.getElementById("close_open_supply").src = "./img/on.png"  
     database.ref("Monitor/Status Valve 1").update({"data" : 1})
-    database.ref("control").update({"van1" : 1})
-    valve1.style.display = "block"
-    
+    database.ref("control").update({"van1" : 1})  
 }
 
 btnOff01.onclick = function(){
     document.getElementById("close_open_supply").src = "./img/off.png" 
     database.ref("Monitor/Status Valve 1").update({"data" : 0})
     database.ref("control").update({"van1" : 0})
-    valve1.style.display = "none"
 }
 
 // //--------web to firebse------------funtion button 02----------------------------------
@@ -432,11 +431,13 @@ database.ref("Monitor/Status Valve 1/data").on("value", function(snapshot){
         document.getElementById("supply_valve").innerHTML = "OPEN";
         document.getElementById("close_open_supply").src = "img/on.png";
         document.getElementById("close_open_supply_ngoai").src = "img/on.png";
+        valve1.style.display = "block";
     }
     else{
         document.getElementById("supply_valve").innerHTML = "CLOSE";
         document.getElementById("close_open_supply").src = "img/off.png"; 
         document.getElementById("close_open_supply_ngoai").src = "img/off.png"; 
+        valve1.style.display = "none";
     } 
 })
 
@@ -447,11 +448,28 @@ database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
         document.getElementById("return_valve").innerHTML = "OPEN";
         document.getElementById("close_open_return").src = "img/on.png";
         document.getElementById("close_open_return_ngoai").src = "img/on.png";
+        valve2.style.display = "block";
     }
     else{
         document.getElementById("return_valve").innerHTML = "CLOSE";
         document.getElementById("close_open_return").src = "img/off.png"; 
         document.getElementById("close_open_return_ngoai").src = "img/off.png"; 
+        valve2.style.display = "none";
+    }
+})
+
+// get BYPASS from firebase (auto update when data change)
+database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
+    var bypass1 = snapshot.val();
+    if(bypass1==1){
+        valve3_1.style.display = "block";
+        valve3_2.style.display = "block";
+        valve3_3.style.display = "block";
+    }
+    else{
+        valve3_1.style.display = "none";
+        valve3_2.style.display = "none";
+        valve3_3.style.display = "none";
     }
 })
 
@@ -493,31 +511,50 @@ document.getElementById('save').addEventListener('click', function(){
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
-        valve3.style.display = "block"
         warning.style.display = "none"
-    } else if(bypassVal >= 0 && bypassVal < 15) {
+    } else if(bypassVal > 0 && bypassVal < 15) {
+        database.ref("Monitor/Status Van Bypass").update({
+            "data": 3,
+        });
+        warning.style.display = "block"       
+    }else if(bypassVal == 0) {
         database.ref("Monitor/Status Van Bypass").update({
             "data": 0,
         });
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
-        valve3.style.display = "none"
         warning.style.display = "none"       
     }else{
         database.ref("Monitor/Status Van Bypass").update({
             "data": 3,
         });
-        valve3.style.display = "none"
         warning.style.display = "block"      
     }  
 });
+
 database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
     var canhbao = snapshot.val();
     if (canhbao == 0 || canhbao == 1 ) {
         warning.style.display = "none"       
     }else{
         warning.style.display = "block"
+    }
+})
+
+var fanhead = document.getElementById("fanhead");
+var fanheadoff = document.getElementById("fanheadoff")
+var flow = document.getElementById("flow")
+database.ref("control/run cm").on("value", function(snapshot){
+    var fanandflow = snapshot.val();
+    if (fanandflow == 1 ) {
+        fanhead.style.display = "none"
+        fanheadoff.style.display = "block"   
+        flow.style.display = "none"       
+    }else{
+        fanhead.style.display = "block"
+        fanheadoff.style.display = "none" 
+        flow.style.display = "block"
     }
 })
 
@@ -646,9 +683,11 @@ document.getElementById('set').addEventListener('click', function(){
  var giamsattanso = document.getElementById("giamsattanso");
  var giamsattocdo = document.getElementById("giamsattocdo");
  var giamsatcongsuat = document.getElementById("giamsatcongsuat");
- var valve1 = document.getElementById("valve1");
- var valve2 = document.getElementById("valve2");
- var valve3 = document.getElementById("valve3");
+ var valve3_1 = document.getElementById("valve1");
+ var valve1 = document.getElementById("valve2");
+ var valve2 = document.getElementById("valve3");
+ var valve3_3 = document.getElementById("valve4");
+ var valve3_2 = document.getElementById("valve5");
 
  function getArr(arr, newItem) {
     if (arr.length >= 10) {
@@ -665,6 +704,7 @@ function open_sheet() {
 function function_voltage() {        
     mohinh.style.display = "none";
     giamsatdienap.style.display = "block";
+    giamsatdienap.style.opacity = 1;
     giamsatdongdien.style.display = "none";
     giamsattanso.style.display = "none"
     giamsattocdo.style.display = "none"   
@@ -682,6 +722,7 @@ function function_current() {
     mohinh.style.display = "none";
     giamsatdienap.style.display = "none";
     giamsatdongdien.style.display = "block";
+    giamsatdongdien.style.opacity = 1;
     giamsattanso.style.display = "none"
     giamsattocdo.style.display = "none" 
     giamsatcongsuat.style.display = "none"    
@@ -691,7 +732,8 @@ function function_frequency() {
     giamsatdienap.style.display = "none";
     giamsatdongdien.style.display = "none";
     giamsattanso.style.display = "block" 
-    giamsattocdo.style.display = "none"   
+    giamsattanso.style.opacity = 1;
+    giamsattocdo.style.display = "none"  
     giamsatcongsuat.style.display = "none"    
 }
 function function_speed() {        
@@ -700,6 +742,7 @@ function function_speed() {
     giamsatdongdien.style.display = "none";
     giamsattanso.style.display = "none"
     giamsattocdo.style.display = "block"
+    giamsattocdo.style.opacity = 1;
     giamsatcongsuat.style.display = "none"      
 }
 
@@ -710,6 +753,7 @@ function function_power() {
     giamsattanso.style.display = "none"
     giamsattocdo.style.display = "none"  
     giamsatcongsuat.style.display = "block"     
+    giamsatcongsuat.style.opacity = 1;
 }
 
 var khoaweb = document.getElementById("khoaweb")
@@ -740,32 +784,6 @@ database.ref("Monitor/cam web/data").on("value", function(snapshot){
           });
     }
 })
-
-//Lắng nghe sự thay đổi của cả 3 van supply and return and bypass
-// database.ref("Monitor/Status Valve 1/data").on("value", function(snapshot){
-//     var TTvalve1 = snapshot.val();
-//     if (TTvalve1 == 1 ) {
-//         valve1.style.display = "block"
-//     } else {
-//         valve1.style.display = "none"
-//     }       
-// })
-// database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
-//     var TTvalve2 = snapshot.val();
-//     if (TTvalve2 == 1 ) {
-//         valve2.style.display = "block"
-//     } else {
-//         valve2.style.display = "none"
-//     }       
-// })
-// database.ref("Monitor/Status Valve Bypass/data").on("value", function(snapshot){
-//     var TTvalve3 = snapshot.val();
-//     if (TTvalve3 == 1 ) {
-//         valve3.style.display = "block"
-//     } else {
-//         valve3.style.display = "none"
-//     }       
-// })
 //-------------------------------------------Filter
 var opts_filter = {
     angle: -0.2,
