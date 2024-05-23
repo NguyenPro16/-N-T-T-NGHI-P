@@ -535,12 +535,18 @@ body{
     justify-content: center;
     text-align: center;
     color: blue;
-    background:rgba(255, 255, 0);
+    box-shadow: 1px 1px 3px 3px rgb(163, 161, 161);
     border-radius: 9px;
     border: 2px solid blue;
     position: absolute;
     top: 550px;
     left: 385px;
+    box-shadow: 1px 1px 2px 2px rgb(163, 161, 161);
+    background-color: #f3fff3;
+}
+
+.gsnds h2{
+    font-weight: 400;
 }
 
 .gsndr{
@@ -548,7 +554,8 @@ body{
     justify-content: center;
     text-align: center;
     color: red;
-    background: rgba(255, 255, 0);
+    box-shadow: 1px 1px 2px 2px rgb(163, 161, 161);
+    background-color: #f3fff3;
     border-radius: 9px;
     border: 2px solid red;
     position: absolute;
@@ -557,18 +564,26 @@ body{
     z-index: 2;
 }
 
+.gsndr h2{
+    font-weight: 400;
+}
+
 .gsass{
     width: 170px;
     justify-content: center;
     text-align: center;
     color: blue;
-    background:rgba(255, 255, 0);
+    box-shadow: 1px 1px 2px 2px rgb(163, 161, 161);
+    background-color: #f3fff3;
     border-radius: 9px;
     border: 2px solid blue;
     position: absolute;
     top: 550px;
-    left: 565px;
-    
+    left: 565px;   
+}
+
+.gsass h2{
+    font-weight: 400;
 }
 
 .gsasr{
@@ -576,7 +591,8 @@ body{
     justify-content: center;
     text-align: center;
     color: red;
-    background: rgba(255, 255, 0);
+    box-shadow: 1px 1px 2px 2px rgb(163, 161, 161);
+    background-color: #f3fff3;
     border-radius: 9px;
     border: 2px solid red;
     position: absolute;
@@ -584,13 +600,17 @@ body{
     left: 565px;
 }
 
+.gsasr h2{
+    font-weight: 400;
+}
 
 .gsnddr{
     width: 250px;
     justify-content: center;
     font-size: 16px;
     color: white;
-    background:#074c95;
+    box-shadow: 1px 1px 2px 2px rgb(163, 161, 161);
+    background-color: #074c95;
     border-radius: 9px;
     border: 2px solid #074c95;
     position: absolute;
@@ -599,13 +619,17 @@ body{
     line-height: 1.6;
 }
 
+.gsnddr h2{   
+    font-weight: 400;
+}
+
 .gsnddr h2 span{
     float: right;
 }
 
 .gsnddr .canhbao{
     font-size: 20px;
-    background: white;
+    background-color: white;
     border-radius: 9px;
     justify-content: center;
     text-align: center;
@@ -615,7 +639,6 @@ body{
     width: 250px;
     justify-content: center;
     font-size: 16px;
-    text-align: center;
     color: white;
     background:#074c95;
     border-radius: 9px;
@@ -624,6 +647,14 @@ body{
     top: 650px;
     left: 1150px;
     line-height: 1.6;
+}
+
+.gsdadr h2{   
+    font-weight: 400;
+}
+
+.gsdadr h2 span{
+    float: right;
 }
 
 .gsdadr .canhbao{
