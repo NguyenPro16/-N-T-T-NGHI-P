@@ -56,9 +56,9 @@ modal_bypass.addEventListener('click', function(e) {
     }
 })
 // Gọi hàm function_gsdk ngay khi trang web được tải lên
-// setTimeout(function() {
-//     function_gsdk();
-// }, 5000);
+setTimeout(function() {
+    function_gsdk();
+}, 5000);
 // -------------------------modal_fan-------------------------------------
 var btnopen_fan = document.querySelector('.open_fan')
 var modal_fan = document.querySelector('.modal_fan')
