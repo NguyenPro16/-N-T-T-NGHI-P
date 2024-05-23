@@ -23,6 +23,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     overflow-x: auto;
+    overflow-y: auto;
 }
 
 #header {
@@ -200,21 +201,21 @@ body{
 }
 
 .chiller{
-    position: fixed;
+    position: absolute;
     top: 600px;
     left: 10px;
     z-index: 1;
 }
 
 .pipe1{
-    position: fixed;
+    position: absolute;
     top: 650px;
     left: 675px;
     z-index: 1;
 }
 
 .pipe2{
-    position: fixed;
+    position: absolute;
     top: 770px;
     left: 675px;
     z-index: 1;
@@ -222,7 +223,7 @@ body{
 
 .valvebypass{
     transform: rotate(90deg);
-    position: fixed;
+    position: absolute;
     top: 647px;
     left: 730px;
     z-index: 0;
@@ -230,116 +231,116 @@ body{
 }
 
 .valvesupply{
-    position: fixed;
+    position: absolute;
     top: 560px;
     left: 848px;
     z-index: 0;
 }
 
 .valvereturn{
-    position: fixed;
+    position: absolute;
     top: 687px;
     left: 848px;
     z-index: 0;
 }
 
 .pipethang1-1{
-    position: fixed;
+    position: absolute;
     top: 649px;
     left: 377px;
     z-index: 1;
 }
 
 .pipethang2-1{
-    position: fixed;
+    position: absolute;
     top: 776px;
     left: 377px;
     z-index: 1;
 }
 
 .tempsensor1{
-    position: fixed;
+    position: absolute;
     top: 635px;
     left: 447px;
     z-index: 1;
 }
 .tempsensor2{
-    position: fixed;
+    position: absolute;
     top: 762px;
     left: 447px;
     z-index: 1;
 }
 
 .pipethang1-2{
-    position: fixed;
+    position: absolute;
     top: 649px;
     left: 505px;
     z-index: 1;
 }
 
 .pipethang2-2{
-    position: fixed;
+    position: absolute;
     top: 776px;
     left: 505px;
     z-index: 1;
 }
 
 .presensor1{
-    position: fixed;
+    position: absolute;
     top: 617px;
     left: 597px;
     z-index: 1;
 }
 .presensor2{
-    position: fixed;
+    position: absolute;
     top: 743px;
     left: 597px;
     z-index: 1;
 }
 .pipethang1-3{
-    position: fixed;
+    position: absolute;
     top: 649px;
     left: 968px;
     z-index: 1;
 }
 
 .pipethang2-3{
-    position: fixed;
+    position: absolute;
     top: 776px;
     left: 968px;
     z-index: 1;
 }
 
 .co1{
-    position: fixed;
+    position: absolute;
     top: 657px;
     left: 1040px;
     z-index: 1;
 }
 
 .co2{
-    position: fixed;
+    position: absolute;
     top: 784px;
     left: 1088px;
     z-index: 1;
 }
 
 .pipethang1-4{
-    position: fixed;
+    position: absolute;
     top: 417px;
     left: 1035px;
     z-index: 1;
 }
 
 .pipethang2-4{
-    position: fixed;
+    position: absolute;
     top: 418px;
     left: 1082px;
     z-index: 1;
 }
 
 .ahu{
-    position: fixed;
+    position: absolute;
     top: 238px;
     left: 600px;
     z-index: 1;
@@ -347,7 +348,7 @@ body{
 
 .air1{
     height: 400px;
-    position: fixed;
+    position: absolute;
     top: 180px;
     left: 400px;
     z-index: 1;
@@ -355,7 +356,7 @@ body{
 
 .air2{
     height: 400px;
-    position: fixed;
+    position: absolute;
     top: 140px;
     left: 800px;
     z-index: 1;
@@ -363,7 +364,7 @@ body{
 
 .air3{
     height: 400px;
-    position: fixed;
+    position: absolute;
     top: 140px;
     left: 830px;
     z-index: 1;
@@ -371,7 +372,7 @@ body{
 
 .air4{
     height: 400px;
-    position: fixed;
+    position: absolute;
     top: 140px;
     left: 1300px;
     z-index: 1;
@@ -379,7 +380,7 @@ body{
 
 .fanhead{
     width: 52px;
-    position: fixed;
+    position: absolute;
     top: 324px;
     left: 1315px;
     z-index: 1;;
@@ -387,14 +388,14 @@ body{
 
 .fanheadoff{
     width: 60px;
-    position: fixed;
+    position: absolute;
     top: 324px;
     left: 1312px;
     z-index: 1;;
 }
 
 .pipethang1-5{
-    position: fixed;
+    position: absolute;
     top: 302px;
     left: 1600px;
     z-index: 1;
@@ -402,28 +403,28 @@ body{
 
 .co3{
     transform: rotate(-90deg);
-    position: fixed;
+    position: absolute;
     top: 318px;
     left: 1672px;
     z-index: 1;
 }
 
 .pipethang1-6{
-    position: fixed;
+    position: absolute;
     top: 355px;
     left: 1665px;
     z-index: 1;
 }
 
 .hcmute{
-    position: fixed;
+    position: absolute;
     top: 455px;
     left: 1420px;
     z-index: 1;
 }
 
 .fan{
-    position: fixed;
+    position: absolute;
     top: 298px;
     left: 1277px;
     z-index: 1;
@@ -433,7 +434,7 @@ body{
 .controlmode{
     width: 382px;
     background: #074c95;
-    position: fixed;
+    position: absolute;
     top: 250px;
     left: 50px;
     font-size: 20px;
@@ -473,21 +474,21 @@ body{
 }
 
 .manual{
-    position: fixed;
-    top: 370px;
-    left: 172px;
+    position: absolute;
+    top: 120px;
+    left: 123px;
 }
 
 .off{
-    position: fixed;
-    top: 370px;
-    left: 282px;
+    position: absolute;
+    top: 120px;
+    left: 232px;
 }
 
 .auto{
-    position: fixed;
-    top: 370px;
-    left: 408px;
+    position: absolute;
+    top: 120px;
+    left: 358px;
 }
 
 .controlmode .tempset{
@@ -503,9 +504,9 @@ body{
     width: 150px;
     height: 35px;
     font-size: 30px;
-    position: fixed;
-    top: 435px;
-    left: 60px;
+    position: absolute;
+    top: 190px;
+    left: 10px;
 }
 
 .tempset input{
@@ -514,18 +515,18 @@ body{
     width: 150px;
     height: 35px;
     font-size: 32px;
-    position: fixed;
-    top: 435px;
-    left: 200px;
+    position: absolute;
+    top: 187px;
+    left: 150px;
 }
 
 .tempset button{
     font-size: 20px;
     border-radius: 6px;
-    padding: 5px 10px;  
-    position: fixed;
-    top: 433px;
-    left: 360px;
+    padding: 4px 10px;  
+    position: absolute;
+    top: 187px;
+    left: 310px;
     cursor: pointer;
 }
 /* -------------------------------------- */
@@ -537,7 +538,7 @@ body{
     background:rgba(255, 255, 0);
     border-radius: 9px;
     border: 2px solid blue;
-    position: fixed;
+    position: absolute;
     top: 550px;
     left: 385px;
 }
@@ -550,7 +551,7 @@ body{
     background: rgba(255, 255, 0);
     border-radius: 9px;
     border: 2px solid red;
-    position: fixed;
+    position: absolute;
     top: 850px;
     left: 385px;
     z-index: 2;
@@ -564,7 +565,7 @@ body{
     background:rgba(255, 255, 0);
     border-radius: 9px;
     border: 2px solid blue;
-    position: fixed;
+    position: absolute;
     top: 550px;
     left: 565px;
     
@@ -578,7 +579,7 @@ body{
     background: rgba(255, 255, 0);
     border-radius: 9px;
     border: 2px solid red;
-    position: fixed;
+    position: absolute;
     top: 850px;
     left: 565px;
 }
@@ -592,7 +593,7 @@ body{
     background:#074c95;
     border-radius: 9px;
     border: 2px solid #074c95;
-    position: fixed;
+    position: absolute;
     top: 530px;
     left: 1150px;
     line-height: 1.6;
@@ -619,7 +620,7 @@ body{
     background:#074c95;
     border-radius: 9px;
     border: 2px solid #074c95;
-    position: fixed;
+    position: absolute;
     top: 650px;
     left: 1150px;
     line-height: 1.6;
@@ -642,7 +643,7 @@ body{
     background:#074c95;
     border-radius: 9px;
     /* border: 2px solid red; */
-    position: fixed;
+    position: absolute;
     top: 440px;
     left: 700px;
     line-height: 1.6;
@@ -663,9 +664,9 @@ body{
 
 .filter_text{
     z-index: 1;
-    position: fixed;
-    top: 480px;
-    left: 810px;
+    position: absolute;
+    top: 40px;
+    left: 110px;
     font-size: 30px;
 
 }
@@ -688,7 +689,7 @@ body{
     z-index: 3;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -698,7 +699,7 @@ body{
     z-index: 3;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -792,7 +793,7 @@ body{
 }
 
 #close_open_supply_ngoai{
-    position: fixed;
+    position: absolute;
     top: 610px;
     left: 910px;
 }
@@ -802,13 +803,13 @@ body{
 }
 
 #close_open_return_ngoai{
-    position: fixed;
+    position: absolute;
     top: 738px;
     left: 910px;
 }
 
 #close_open_bypass{
-    position: fixed;
+    position: absolute;
     top: 273px;
     left: 455px;
 }
@@ -837,20 +838,20 @@ body{
 }
 
 .nhapgiatribypass button{
-    position: fixed;
+    position: absolute;
     top: 273px;
     left: 170px;
 }
 
 #close_open_bypass_ngoai{
     rotate: 90deg;
-    position: fixed;
+    position: absolute;
     top: 717px;
     left: 818px;
 }
 /* ----------------- */
 .circle_ngoai{
-    position: fixed;
+    position: absolute;
     width: 37px;
     height: 37px;
     top: 717px;
@@ -871,7 +872,7 @@ body{
 }
 
 .circle{
-    position: fixed;
+    position: absolute;
     width: 37px;
     height: 37px;
     top: 717px;
@@ -944,7 +945,7 @@ body{
     background: rgba(0, 0, 0, 0.6);
     border: 2px solid #074c95;
     border-radius: 10px;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

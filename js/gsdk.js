@@ -20,6 +20,10 @@ const firebaseConfig = {
     var d = new Date();
     time.innerHTML = d.toLocaleTimeString();
   },1000)
+  // Gọi hàm function_gsdk ngay khi trang web được tải lên
+setTimeout(function() {
+    function_gsdk();
+}, 5000);
 // -----------------modal_valve -------------------------
 var btnsopen = document.querySelectorAll('.open_modal_btn');
 var modal = document.querySelector('.modal');
@@ -55,10 +59,6 @@ modal_bypass.addEventListener('click', function(e) {
         toggleModalBypass()
     }
 })
-// Gọi hàm function_gsdk ngay khi trang web được tải lên
-setTimeout(function() {
-    function_gsdk();
-}, 5000);
 // -------------------------modal_fan-------------------------------------
 var btnopen_fan = document.querySelector('.open_fan')
 var modal_fan = document.querySelector('.modal_fan')
