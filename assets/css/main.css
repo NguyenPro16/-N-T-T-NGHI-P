@@ -22,8 +22,6 @@ body{
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
-    overflow-x: auto;
-    overflow-y: auto;
 }
 
 #header {
@@ -186,6 +184,76 @@ body{
     left: 1550px;
     /* transform: translate(-50%, -50%); */
     padding: 33px 10px 13px 70px;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #074c95;
+    font-size: 20px;
+    text-align: center;
+    color: red;
+    line-height: 1.6;
+}
+
+#canhbaoapsuatcao{
+    width: 500px;
+    height: 300px;
+    position: fixed; 
+    top: 80px;
+    left: 0;   
+    animation: slideInRight 0.5s forwards;
+    z-index: 4;
+
+}
+
+.warningapsuat{
+    position: fixed;
+    top: 35px;
+    left: 1575px;
+    /* transform: translate(-50%, -50%); */
+    z-index: 4;
+}
+.textwarningapsuat{
+    width: 300px;
+    height: 100px;
+    position: fixed;
+    top: 10px;
+    left: 1550px;
+    /* transform: translate(-50%, -50%); */
+    padding: 15px 10px 13px 70px;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #074c95;
+    font-size: 20px;
+    text-align: center;
+    color: red;
+    line-height: 1.6;
+}
+
+#canhbaolocban{
+    width: 500px;
+    height: 300px;
+    position: fixed; 
+    top: 80px;
+    left: 0;   
+    animation: slideInRight 0.5s forwards;
+    z-index: 4;
+
+}
+
+.warningloc{
+    position: fixed;
+    top: 35px;
+    left: 1575px;
+    /* transform: translate(-50%, -50%); */
+    z-index: 4;
+}
+.textwarningloc{
+    width: 300px;
+    height: 100px;
+    position: fixed;
+    top: 10px;
+    left: 1550px;
+    /* transform: translate(-50%, -50%); */
+    padding: 33px 10px 13px 80px;
     background: white;
     border-radius: 10px;
     border: 2px solid #074c95;
@@ -720,6 +788,7 @@ body{
     z-index: 3;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
+    border: 2px solid #074c95;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -730,6 +799,7 @@ body{
     z-index: 3;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
+    border: 2px solid #074c95;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1021,8 +1091,7 @@ body{
 
 .monitor{
     width: 100%;
-    height: auto;
-    
+    height: auto;  
 }
 
  #giamsatdienap{
@@ -1134,6 +1203,19 @@ body{
     left: 39%;
     font-size: 20px;
     line-height: 1.8;
+}
+
+.block4 table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.block4 th, td {
+    /* border: 2px solid black; */
+    padding: 1px 0px 1px 15px;
+    text-align: left;
+}
+.block4 th:nth-child(even) {
+    background-color: #dddddd;
 }
 
 .control .block4 ul{

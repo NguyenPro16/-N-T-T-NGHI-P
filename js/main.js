@@ -110,9 +110,9 @@ btnAuto.onclick = function(){
 database.ref("Monitor/TT Manual/data").on("value", function(snapshot){
     var manualVal = snapshot.val();
     if(manualVal==1){
-        document.getElementById("manualid").src = "./img/on.png" 
-        document.getElementById("offid").src = "./img/off.png"  
-        document.getElementById("autoid").src = "./img/off.png"
+        document.getElementById("manualid").src = "hinh/on.png" 
+        document.getElementById("offid").src = "hinh/off.png"  
+        document.getElementById("autoid").src = "hinh/off.png"
     } 
 })
 
@@ -120,9 +120,9 @@ database.ref("Monitor/TT Manual/data").on("value", function(snapshot){
 database.ref("Monitor/TT OFF/data").on("value", function(snapshot){
     var offVal = snapshot.val();   
     if(offVal==0){
-        document.getElementById("manualid").src = "./img/off.png" 
-        document.getElementById("offid").src = "./img/on.png"  
-        document.getElementById("autoid").src = "./img/off.png"
+        document.getElementById("manualid").src = "hinh/off.png" 
+        document.getElementById("offid").src = "hinh/on.png"  
+        document.getElementById("autoid").src = "hinh/off.png"
     }    
 })
 
@@ -132,9 +132,9 @@ database.ref("Monitor/TT OFF/data").on("value", function(snapshot){
 database.ref("Monitor/TT Auto/data").on("value", function(snapshot){
     var autoVal = snapshot.val();
     if(autoVal==1){
-        document.getElementById("manualid").src = "./img/off.png" 
-        document.getElementById("offid").src = "./img/off.png"  
-        document.getElementById("autoid").src = "./img/on.png"
+        document.getElementById("manualid").src = "hinh/off.png" 
+        document.getElementById("offid").src = "hinh/off.png"  
+        document.getElementById("autoid").src = "hinh/on.png"
         document.querySelectorAll('.open_modal_btn').disabled = true
         document.querySelector(".open_modal_btnbypass").disabled = true
     } 
@@ -147,13 +147,13 @@ var btnOn01 = document.getElementById("btnOnId_01");
 var btnOff01 = document.getElementById("btnOffId_01");
 
 btnOn01.onclick = function(){
-    document.getElementById("close_open_supply").src = "./img/on.png"  
+    document.getElementById("close_open_supply").src = "hinh/on.png"  
     database.ref("Monitor/Status Valve 1").update({"data" : 1})
     database.ref("control").update({"van1" : 1})  
 }
 
 btnOff01.onclick = function(){
-    document.getElementById("close_open_supply").src = "./img/off.png" 
+    document.getElementById("close_open_supply").src = "hinh/off.png" 
     database.ref("Monitor/Status Valve 1").update({"data" : 0})
     database.ref("control").update({"van1" : 0})
 }
@@ -164,7 +164,7 @@ var btnOn02 = document.getElementById("btnOnId_02");
 var btnOff02 = document.getElementById("btnOffId_02");
 
 btnOn02.onclick = function(){
-    document.getElementById("close_open_return").src = "./img/on.png"   
+    document.getElementById("close_open_return").src = "hinh/on.png"   
     database.ref("Monitor/Status Valve 2").update({"data" : 1})
     database.ref("control").update({"van2" : 1})
     valve2.style.display = "block"
@@ -172,7 +172,7 @@ btnOn02.onclick = function(){
 }
 
 btnOff02.onclick = function(){
-    document.getElementById("close_open_return").src = "./img/off.png" 
+    document.getElementById("close_open_return").src = "hinh/off.png" 
     database.ref("Monitor/Status Valve 2").update({"data" : 0})
     database.ref("control").update({"van2" : 0})
     valve2.style.display = "none"
@@ -254,9 +254,15 @@ database.ref("Monitor/Temperature Return/data").on("value", function(snapshot){
 })
 
 // get PresSupply from firebase (auto update when data change)
+var canhbaoapsuatcao = document.getElementById("canhbaoapsuatcao") 
 database.ref("Monitor/Pressure Output/data").on("value", function(snapshot){
     var PresSupply = snapshot.val();
     document.getElementById("apsuatsupply").innerHTML = PresSupply;
+    if (PresSupply >= 3) {
+        canhbaoapsuatcao.style.display = "block"
+    } else {
+        canhbaoapsuatcao.style.display = "none"
+    }
 })
 
 // get PresReturn from firebase (auto update when data change)
@@ -413,15 +419,10 @@ database.ref("Monitor/Humidity Room/data").on("value", function(snapshot) {
 });
 
 
-// get HumOut from firebase (auto update when data change)
+// get CPS-A from firebase (auto update when data change)
 database.ref("Monitor/CPS-A/data").on("value", function(snapshot){
     var chenhap = snapshot.val();
     document.getElementById("chenhap").innerHTML = chenhap + " Pa";
-    if (chenap >=90) {
-        
-    } else {
-        
-    }
 })
 
 // get SUPPLY from firebase (auto update when data change)
@@ -429,14 +430,14 @@ database.ref("Monitor/Status Valve 1/data").on("value", function(snapshot){
     var supply = snapshot.val();
     if(supply==1){
         document.getElementById("supply_valve").innerHTML = "OPEN";
-        document.getElementById("close_open_supply").src = "img/on.png";
-        document.getElementById("close_open_supply_ngoai").src = "img/on.png";
+        document.getElementById("close_open_supply").src = "hinh/on.png";
+        document.getElementById("close_open_supply_ngoai").src = "hinh/on.png";
         valve1.style.display = "block";
     }
     else{
         document.getElementById("supply_valve").innerHTML = "CLOSE";
-        document.getElementById("close_open_supply").src = "img/off.png"; 
-        document.getElementById("close_open_supply_ngoai").src = "img/off.png"; 
+        document.getElementById("close_open_supply").src = "hinh/off.png"; 
+        document.getElementById("close_open_supply_ngoai").src = "hinh/off.png"; 
         valve1.style.display = "none";
     } 
 })
@@ -446,14 +447,14 @@ database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
     var return1 = snapshot.val();
     if(return1==1){
         document.getElementById("return_valve").innerHTML = "OPEN";
-        document.getElementById("close_open_return").src = "img/on.png";
-        document.getElementById("close_open_return_ngoai").src = "img/on.png";
+        document.getElementById("close_open_return").src = "hinh/on.png";
+        document.getElementById("close_open_return_ngoai").src = "hinh/on.png";
         valve2.style.display = "block";
     }
     else{
         document.getElementById("return_valve").innerHTML = "CLOSE";
-        document.getElementById("close_open_return").src = "img/off.png"; 
-        document.getElementById("close_open_return_ngoai").src = "img/off.png"; 
+        document.getElementById("close_open_return").src = "hinh/off.png"; 
+        document.getElementById("close_open_return_ngoai").src = "hinh/off.png"; 
         valve2.style.display = "none";
     }
 })
@@ -461,7 +462,7 @@ database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
 // get BYPASS from firebase (auto update when data change)
 database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
     var bypass1 = snapshot.val();
-    if(bypass1==1){
+    if(bypass1 == 1 || bypass1 == 3){
         valve3_1.style.display = "block";
         valve3_2.style.display = "block";
         valve3_3.style.display = "block";
@@ -485,8 +486,8 @@ database.ref("control/over value ao2").on("value", function(snapshot){
         updateCircle_ngoai(bypass);
         updateCircle(bypass);
         document.getElementById("bypass_valve").innerHTML = "OFF";
-        document.getElementById("close_open_bypass").src = "img/off.png"; 
-        document.getElementById("close_open_bypass_ngoai").src = "img/off.png";
+        document.getElementById("close_open_bypass").src = "hinh/off.png"; 
+        document.getElementById("close_open_bypass_ngoai").src = "hinh/off.png";
     }   
 })
 
@@ -801,6 +802,7 @@ var opts_filter = {
     strokeColor: '#E0E0E0',
     generateGradient: true
 };
+var canhbaolocban = document.getElementById("canhbaolocban")
     database.ref("Monitor/CPS-A/data").on("value", function (snapshot) {
 //         //----------------------------- Gauge ----------------------------
         filter_out = snapshot.val();   
@@ -814,14 +816,17 @@ var opts_filter = {
             document.getElementById('filter').textContent = 'Clean';
             document.getElementById('filter').style.color = 'green';
             document.getElementById('filter').classList.remove('blink');
+            canhbaolocban.style.display = "none"
         } else if(filter_out > 50 && filter_out <= 80) {
             document.getElementById('filter').textContent = 'Dirty';
             document.getElementById('filter').style.color = 'yellow';
             document.getElementById('filter').classList.remove('blink');
+            canhbaolocban.style.display = "none"
         } else{
             document.getElementById('filter').textContent = 'Very Dirty';
             document.getElementById('filter').style.color = 'red';
             document.getElementById('filter').classList.add('blink');
+            canhbaolocban.style.display = "block"
         }
     });
         
