@@ -880,7 +880,7 @@ var chart_voltage = new Chart(voltage, {
                 min: 0,
                 max: 400,
                 ticks: {
-                    stepSize: 50
+                    stepSize: 40
                 }
             }
         }
@@ -1015,9 +1015,9 @@ var chartIntervalvoltage, historyIntervalvoltage;
             scales: {
                 y: {
                     min: 0,
-                    max: 400,
+                    max: 5,
                     ticks: {
-                        stepSize: 50
+                        stepSize: 0.5
                     }
                 }
             }
@@ -1042,7 +1042,7 @@ var chartIntervalvoltage, historyIntervalvoltage;
         var ctx = target_current.getContext('2d');
         var gauge_current = new Gauge(target_current).setOptions(opts_current);
         gauge_current.animationSpeed = 32;
-        gauge_current.maxValue = 400;
+        gauge_current.maxValue = 5;
         gauge_current.set(current_out);
         //----------------------------- Chart ----------------------------
         // Cập nhật biểu đồ ngay lập tức khi có dữ liệu mới
@@ -1160,7 +1160,7 @@ var chart_frequency = new Chart(frequency, {
             // },
             y: {
                 min: 0,
-                max: 80,
+                max: 60,
                 ticks: {
                     stepSize: 10
                 }
@@ -1187,7 +1187,7 @@ var chartIntervalfrequency, historyIntervalfrequency;
         var gauge_frequency = new Gauge(target_frequency).setOptions(opts_frequency); // create sexy gauge!
         gauge_frequency.animationSpeed = 32;
     
-        gauge_frequency.maxValue = 80; // set max gauge value
+        gauge_frequency.maxValue = 60; // set max gauge value
         gauge_frequency.set(frequency_out);
         //----------------------------- Chart ----------------------------
         // Cập nhật biểu đồ ngay lập tức khi có dữ liệu mới
@@ -1304,9 +1304,9 @@ var chart_speed = new Chart(speed, {
             // },
             y: {
                 min: 0,
-                max: 2000,
+                max: 3000,
                 ticks: {
-                    stepSize: 200
+                    stepSize: 300
                 }
             }
         }
@@ -1331,7 +1331,7 @@ var chartIntervalspeed, historyIntervalspeed;
         var gauge_speed = new Gauge(target_speed).setOptions(opts_speed); // create sexy gauge!
         gauge_speed.animationSpeed = 32;
     
-        gauge_speed.maxValue = 2000; // set max gauge value
+        gauge_speed.maxValue = 3000; // set max gauge value
         gauge_speed.set(speed_out);
              //----------------------------- Chart ----------------------------
         // Cập nhật biểu đồ ngay lập tức khi có dữ liệu mới
@@ -1475,7 +1475,7 @@ var chartIntervalpower, historyIntervalpower;
         var gauge_power = new Gauge(target_power).setOptions(opts_power); // create sexy gauge!
         gauge_power.animationSpeed = 32;
     
-        gauge_power.maxValue = 2000; // set max gauge value
+        gauge_power.maxValue = 1000; // set max gauge value
         gauge_power.set(power_out);
         //----------------------------- Chart ----------------------------
         // Cập nhật biểu đồ ngay lập tức khi có dữ liệu mới
