@@ -238,7 +238,7 @@ database.ref("Monitor/RPM/data").on("value", function(snapshot){
 
 database.ref("Monitor/Power/data").on("value", function(snapshot){
     var Power = snapshot.val();
-    document.getElementById("value-power-monitor").innerHTML = Power + " W";
+    document.getElementById("value-power-monitor").innerHTML = Power + " kW";
 })
 
 // get Tempsupply from firebase (auto update when data change)
@@ -1468,7 +1468,7 @@ var chartIntervalpower, historyIntervalpower;
     database.ref("Monitor/Power/data").on("value", function (snapshot) {
         //----------------------------- Gauge ----------------------------
         power_out = snapshot.val();
-        document.getElementById("power").innerHTML = power_out + " W";    
+        document.getElementById("power").innerHTML = power_out + " kW";    
         
         var target_power = document.getElementById('gauge-power'); // your canvas element
         var ctx = target_power.getContext('2d');
@@ -1518,19 +1518,19 @@ var chartIntervalpower, historyIntervalpower;
                 value_power[6] = power_out;
             }
             content_row_power[2].innerHTML = time_power[0];
-            content_row_power[3].innerHTML = value_power[0] + " W";
+            content_row_power[3].innerHTML = value_power[0] + " kW";
             content_row_power[4].innerHTML = time_power[1];
-            content_row_power[5].innerHTML = value_power[1] + " W";
+            content_row_power[5].innerHTML = value_power[1] + " kW";
             content_row_power[6].innerHTML = time_power[2];
-            content_row_power[7].innerHTML = value_power[2] + " W";
+            content_row_power[7].innerHTML = value_power[2] + " kW";
             content_row_power[8].innerHTML = time_power[3];
-            content_row_power[9].innerHTML = value_power[3] + " W";
+            content_row_power[9].innerHTML = value_power[3] + " kW";
             content_row_power[10].innerHTML = time_power[4];
-            content_row_power[11].innerHTML = value_power[4] + " W";
+            content_row_power[11].innerHTML = value_power[4] + " kW";
             content_row_power[12].innerHTML = time_power[5];
-            content_row_power[13].innerHTML = value_power[5] + " W";
+            content_row_power[13].innerHTML = value_power[5] + " kW";
             content_row_power[14].innerHTML = time_power[6];
-            content_row_power[15].innerHTML = value_power[6] + " W";
+            content_row_power[15].innerHTML = value_power[6] + " kW";
         }
     // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
     if (!chartIntervalpower) {
