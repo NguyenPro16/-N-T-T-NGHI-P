@@ -44,6 +44,12 @@
                     <label>Giá trị không hợp lệ</label>
                 </div>
             </div>
+            <div id="getdata">
+                <img src="hinh\getdata.png" alt="" id="data" class="data" width="50px">
+                <div class="textdata">
+                    <label>Dữ liệu đã được lưu vào hệ thống.</label>
+                </div>
+            </div>
             <div id="mohinh">
                 <div id="valve1">
                     <div id="line-1-1"></div>
@@ -315,65 +321,65 @@
                             </section>
                             <h2 id ="fan">FAN CONTROL</h2>
                             <div class="control">
-                                <div class="input-group">  
-                                    <div class="block1">
-                                        <p>
-                                            <label >Min Value:</label>
-                                            <input type="number" id="Min_Value">
-                                        </p>
-                                        <p>
-                                            <label >Max Value:</label>
-                                            <input type="number" id="Max_Value">
-                                        </p>
-                                        <p>
-                                            <label >Set Point:</label>
-                                            <input type="number" id="Set_Point">
-                                        </p>
-                                    </div>
-                                    <div class="block2">
-                                        <label >Over Enable:</label>
-                                        <div class="selectoverenablebientan">
-                                            <select class="overenablebientan" id="overenablebientan">
-                                                <option value="0">OFF</option>
-                                                <option value="1">ON</option>
-                                            </select>
-                                        </div>                                     
-                                            <label >Over Value:</label>
-                                            <input type="number" id="Over_Value">
-                                        
-                                    </div>
-                                    <div class="block3">
-                                        <p>
-                                            <label >LOCK:</label>
+                                <iframe name="hiddenFrame" width="0" height="0" style="display: none;"></iframe>
+                                <form onsubmit="submitted=true;" target="hiddenFrame" class="text-left"  role="form" id="ss-form" method="get" action="https://script.google.com/macros/s/AKfycbz8rKgb3cDR-QPk4TUiBfWtDFrPCmQf_zWtNORKWBZR4aZ1o6RnBzSnnPBhGzuv_l0s/exec">
+                                    <div class="input-group">  
+                                        <div class="block1">
+                                            <p>
+                                                <label >Min Value:</label>
+                                                <input type="number" id="Min_Value" name="Min Value">
+                                            </p>
+                                            <p>
+                                                <label >Max Value:</label>
+                                                <input type="number" id="Max_Value" name="Max Value">
+                                            </p>
+                                            <p>
+                                                <label >Set Point:</label>
+                                                <input type="number" id="Set_Point" name="Set Point">
+                                            </p>
+                                        </div>
+                                        <div class="block2">
+                                            <label >Over Enable:</label>
                                             <div class="selectoverenablebientan">
-                                                <select class="lockbientan" id="locklebientan">
-                                                    <option value="1">UNLOCK</option>
-                                                    <option value="0">LOCK</option>
+                                                <select class="overenablebientan" id="overenablebientan" name="Over Enable">
+                                                    <option value="0">OFF</option>
+                                                    <option value="1">ON</option>
                                                 </select>
-                                            </div>
-                                        </p>
-                                        
-                                        <p>
-                                            <label >RCM:</label>
-                                            <div class="selectoverenablebientan">
-                                                <select class="rcmbientan" id="rcmlebientan">
-                                                    <option value="1">STOP</option>
-                                                    <option value="2">RUN</option>
-                                                </select>
-                                            </div>
-                                        </p>
-                                        <p>
-                                            <label >ACC:</label>
-                                        <input type="number" id="ACC">
-                                        </p>
-                                        <p>
-                                            <label >DEC:</label>
-                                        <input type="number" id="DEC">
-                                        </p>
-                                        
-                                            <button id="write">SAVE</button>
-                                        
-                                    </div>
+                                            </div>                                     
+                                                <label >Over Value:</label>
+                                                <input type="number" id="Over_Value" name="Over Value">
+                                            
+                                        </div>
+                                        <div class="block3">
+                                            <p>
+                                                <label >LOCK:</label>
+                                                <div class="selectoverenablebientan">
+                                                    <select class="lockbientan" id="locklebientan" name="LOCK">
+                                                        <option value="1">UNLOCK</option>
+                                                        <option value="0">LOCK</option>
+                                                    </select>
+                                                </div>
+                                            </p>
+                                            <p>
+                                                <label >RCM:</label>
+                                                <div class="selectoverenablebientan">
+                                                    <select class="rcmbientan" id="rcmlebientan" name="RCM">
+                                                        <option value="1">STOP</option>
+                                                        <option value="2">RUN</option>
+                                                    </select>
+                                                </div>
+                                            </p>
+                                            <p>
+                                                <label >ACC:</label>
+                                            <input type="number" id="ACC" name="ACC">
+                                            </p>
+                                            <p>
+                                                <label >DEC:</label>
+                                                <input type="number" id="DEC" name="DEC">
+                                            </p>                                           
+                                                <button id="write" name="submit" type="submit">SAVE</button>                                            
+                                        </div>
+                                </form>                              
                                     <div class="block4">
                                         <div class="body_support">
                                             <table>
@@ -415,14 +421,6 @@
                                                 </tr>
                                             </table>                                            
                                         </div>
-                                        <!-- <div class="header_note">
-                                            <h3>Note</h3>
-                                        </div>
-                                        <div class="body_note">
-                                            <div class="note" id="out_note_lock"></div>
-                                            <div class="note" id="out_note_rcm"></div>
-                                            <div class="note" id="out_note_overenable"></div>
-                                        </div> -->
                                     </div>
                                 </div>                                
                             </div>

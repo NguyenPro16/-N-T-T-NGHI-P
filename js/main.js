@@ -392,31 +392,31 @@ document.getElementById('tempset').addEventListener('change', function() {
 //     })
 // })
 
-function checkHumidity(HumOut) {
-    var warningElement = document.getElementById('canhbaodoam');
+// function checkHumidity(HumOut) {
+//     var warningElement = document.getElementById('canhbaodoam');
 
-    if (HumOut <= 50) {
-        warningElement.textContent = 'Độ ẩm không khí thấp';
-        warningElement.style.color = 'red';
-        warningElement.classList.add('blink');
-    } else if (HumOut > 50 && HumOut <= 70) {
-        warningElement.textContent = 'Độ ẩm lý tưởng';
-        warningElement.style.color = 'green';
-        warningElement.classList.remove('blink');
-    } else {
-        warningElement.textContent = 'Độ ẩm không khí cao';
-        warningElement.style.color = 'red';
-        warningElement.classList.add('blink');
-    }
-}
+//     if (HumOut <= 50) {
+//         warningElement.textContent = 'Độ ẩm không khí thấp';
+//         warningElement.style.color = 'red';
+//         warningElement.classList.add('blink');
+//     } else if (HumOut > 50 && HumOut <= 70) {
+//         warningElement.textContent = 'Độ ẩm lý tưởng';
+//         warningElement.style.color = 'green';
+//         warningElement.classList.remove('blink');
+//     } else {
+//         warningElement.textContent = 'Độ ẩm không khí cao';
+//         warningElement.style.color = 'red';
+//         warningElement.classList.add('blink');
+//     }
+// }
 
-// Gọi hàm checkHumidity mỗi khi giá trị của setVal thay đổi
-database.ref("Monitor/Humidity Room/data").on("value", function(snapshot) {
-    var HumOut = parseFloat(snapshot.val()); // Đảm bảo giá trị được parse sang số thực
-    document.getElementById("doamdaura").textContent = HumOut + " %";
+// // Gọi hàm checkHumidity mỗi khi giá trị của setVal thay đổi
+// database.ref("Monitor/Humidity Room/data").on("value", function(snapshot) {
+//     var HumOut = parseFloat(snapshot.val()); // Đảm bảo giá trị được parse sang số thực
+//     document.getElementById("doamdaura").textContent = HumOut + " %";
 
-    checkHumidity(HumOut); // Gọi hàm kiểm tra điều kiện với giá trị độ ẩm
-});
+//     checkHumidity(HumOut); // Gọi hàm kiểm tra điều kiện với giá trị độ ẩm
+// });
 
 
 // get CPS-A from firebase (auto update when data change)
@@ -573,7 +573,6 @@ function updateSetpointDisplay(value) {
     setpointElement1.value = value;
 }
 
-
 // Lắng nghe sự kiện khi người dùng nhấn nút "Lưu"
 document.getElementById('write').addEventListener('click', function(){
     // Lấy giá trị từ các input
@@ -589,6 +588,7 @@ document.getElementById('write').addEventListener('click', function(){
     var fanhead = document.getElementById("fanhead");
     var fanheadoff = document.getElementById("fanheadoff")
     var flow = document.getElementById("flow")
+    var getdata = document.getElementById("getdata")
 
     // Gửi dữ liệu mới qua Firebase
     database.ref("control").update({
@@ -602,48 +602,6 @@ document.getElementById('write').addEventListener('click', function(){
         "acc": accVal,
         "dec": decVal
     });
-
-    // Kiểm tra giá trị của LOCK và hiển thị thông báo phù hợp
-    // if (lockVal === "0" || lockVal === "1" ) {
-    //     document.getElementById('out_note_lock').textContent = '';
-    // } else {
-    //     document.getElementById('out_note_lock').textContent = 'Giá trị LOCK không hợp lệ';
-    //     document.getElementById('out_note_lock').style.color = 'red';
-    // }
-
-    // if (rcmVal === "1" || rcmVal === "2" || rcmVal === "4") {
-    //     document.getElementById('out_note_rcm').textContent = '';
-    // } else {
-    //     document.getElementById('out_note_rcm').textContent = 'Giá trị Run Command không hợp lệ';
-    //     document.getElementById('out_note_rcm').style.color = 'red';
-    // }
-
-    // if (overEnableVal === "0" || overEnableVal === "1" ) {
-    //     document.getElementById('out_note_overenable').textContent = '';
-    // } else {
-    //     document.getElementById('out_note_overenable').textContent = 'Giá trị Over Enable không hợp lệ';
-    //     document.getElementById('out_note_overenable').style.color = 'red';
-    // }
-    // Kiểm tra giá trị fan
-    // if (rcmVal == 1) {
-    //     fanhead.style.display = "none"
-    //     fanheadoff.style.display = "block"   
-    //     flow.style.display = "none"
-    // } else {
-    //     fanhead.style.display = "block"
-    //     fanheadoff.style.display = "none" 
-    //     flow.style.display = "block"
-    // }
-    // var selectoveranable = document.getElementById('overenablebientan').value;    
-    // database.ref("control").update({"over enable ao1" : selectoveranable})
-    // var selectlock = document.getElementById('locklebientan').value;    
-    //     database.ref("control").update({"lock" : selectlock})
-    // var selectrcm = document.getElementById('rcmlebientan').value;    
-    //     database.ref("control").update({"run cm" : selectrcm})
-    //     // Kiểm tra giá trị fan
-    // var fanhead = document.getElementById("fanhead");
-    // var fanheadoff = document.getElementById("fanheadoff")
-    // var flow = document.getElementById("flow")
         if (selectrcm == 1) {
         fanhead.style.display = "none"
         fanheadoff.style.display = "block"   
@@ -654,6 +612,10 @@ document.getElementById('write').addEventListener('click', function(){
         flow.style.display = "block"
     }
     checkcheck()
+    getdata.style.display = "block" 
+    setTimeout(() => {
+        getdata.style.display = "none";
+        }, 3000);
 });
 
 // Lắng nghe sự kiện khi người dùng nhấn nút "Set"
@@ -961,7 +923,7 @@ var chartIntervalvoltage, historyIntervalvoltage;
         // Cập nhật dữ liệu lịch sử ngay lập tức khi có dữ liệu mới
         updateHistoryDatavoltage(voltage_out);
     });
-       function updateChartvoltage(voltage_out){
+        function updateChartvoltage(voltage_out){
             var time = new Date().toLocaleTimeString();
             const data = getArr(chart_voltage.data.datasets[0].data, voltage_out);
             const labels = getArr(chart_voltage.data.labels, time);
@@ -1022,7 +984,7 @@ var chartIntervalvoltage, historyIntervalvoltage;
             historyInterval = setInterval(() => {
                 updateHistoryDatavoltage(voltage_out);
             }, 1000);
-        } 
+        }
 // ----------------------------------------DONGDIEN---------------------------------------------------------
     var opts_current = {
         angle: -0.2,
@@ -1614,7 +1576,7 @@ function exportToExcel() {
 
     // Prepare historical voltage data
     const historyData = [];
-    for (let i = 0; i < time_voltage.length; i++) {
+    for (let i = 0; i < 86400; i++) {
         if (time_voltage[i] && value_voltage[i] !== undefined) {
             historyData.push([time_voltage[i], value_voltage[i]]);
         }

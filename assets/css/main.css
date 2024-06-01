@@ -122,6 +122,42 @@ body{
     }
   }
 
+/* ---------------Get DATA---------------- */
+#getdata{
+    display: none;
+    width: 500px;
+    height: 300px;
+    position: fixed; 
+    top: 80px;
+    left: 0;   
+    animation: slideInRight 0.5s forwards;
+    z-index: 4;
+
+}
+
+.data{
+    position: fixed;
+    top: 35px;
+    left: 1575px;
+    /* transform: translate(-50%, -50%); */
+    z-index: 4;
+}
+.textdata{
+    width: 300px;
+    height: 100px;
+    position: fixed;
+    top: 10px;
+    left: 1550px;
+    /* transform: translate(-50%, -50%); */
+    padding: 15px 10px 13px 70px;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #074c95;
+    font-size: 20px;
+    text-align: center;
+    color: green;
+    line-height: 1.6;
+}
 /* ---------------Mở Khóa Website---------------- */
 #moweb{
     width: 500px;
