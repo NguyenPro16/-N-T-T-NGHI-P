@@ -150,6 +150,9 @@
                     <div class="textwarningloc">
                         <label>Lọc bẩn, cần thay mới!</label>
                     </div>
+                    <audio id="loc_sound">
+                        <source src="hinh/canhbao2.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
                 
                 <img class="chiller" src="hinh\chiller.png" alt="" width="400px">
@@ -431,6 +434,7 @@
             <div id="giamsatdienap">
                 <div id="sheet-voltage" class="sheet">
                     <p class="report" onclick="open_sheet()">Report</p>
+                    <button id="export-button">Export to Excel</button>
                     <table id="table-sheet-voltage" class="table-sheet">
                         <div class="body-sheet">
                             <tr class="title-col-sheet">
@@ -697,6 +701,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gaugeJS/dist/gauge.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script src="js\main.js"> </script>
 </body>
 </html>

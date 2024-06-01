@@ -691,7 +691,7 @@ document.getElementById('set').addEventListener('click', function(){
  var valve3_2 = document.getElementById("valve5");
 
  function getArr(arr, newItem) {
-    if (arr.length >= 10) {
+    if (arr.length >= 180) {
         arr.shift();
     }
     arr.push(newItem);
@@ -803,6 +803,7 @@ var opts_filter = {
     generateGradient: true
 };
 var canhbaolocban = document.getElementById("canhbaolocban")
+var locSound = document.getElementById("loc_sound");
     database.ref("Monitor/CPS-A/data").on("value", function (snapshot) {
 //         //----------------------------- Gauge ----------------------------
         filter_out = snapshot.val();   
@@ -817,18 +818,64 @@ var canhbaolocban = document.getElementById("canhbaolocban")
             document.getElementById('filter').style.color = 'green';
             document.getElementById('filter').classList.remove('blink');
             canhbaolocban.style.display = "none"
+            locSound.pause();
+            locSound.currentTime = 0;
         } else if(filter_out > 50 && filter_out <= 80) {
             document.getElementById('filter').textContent = 'Dirty';
             document.getElementById('filter').style.color = 'yellow';
             document.getElementById('filter').classList.remove('blink');
             canhbaolocban.style.display = "none"
+            locSound.pause();
+            locSound.currentTime = 0;
         } else{
             document.getElementById('filter').textContent = 'Very Dirty';
             document.getElementById('filter').style.color = 'red';
             document.getElementById('filter').classList.add('blink');
             canhbaolocban.style.display = "block"
+            locSound.play();
+            console.log(locSound)
         }
     });
+// Thêm sự kiện 'ended' để phát lại âm thanh khi nó kết thúc
+// function playcanhbao(){
+//     locSound.addEventListener('ended', function() {
+//         locSound.currentTime = 0;
+//         locSound.play();
+//     });
+// }
+
+// // Khi giá trị filter_out thay đổi
+// database.ref("Monitor/CPS-A/data").on("value", function (snapshot) {
+//     filter_out = snapshot.val();   
+//     var target_filter = document.getElementById('gauge-filter');
+//     var ctx = target_filter.getContext('2d');
+//     var gauge_filter = new Gauge(target_filter).setOptions(opts_filter);
+//     gauge_filter.animationSpeed = 32;   
+//     gauge_filter.maxValue = 100; 
+//     gauge_filter.set(filter_out);
+
+//     if (filter_out <= 50 ) {
+//         document.getElementById('filter').textContent = 'Clean';
+//         document.getElementById('filter').style.color = 'green';
+//         document.getElementById('filter').classList.remove('blink');
+//         canhbaolocban.style.display = "none";
+//         locSound.pause(); // Dừng âm thanh khi bộ lọc sạch
+//         locSound.currentTime = 0;
+//     } else if(filter_out > 50 && filter_out <= 80) {
+//         document.getElementById('filter').textContent = 'Dirty';
+//         document.getElementById('filter').style.color = 'yellow';
+//         document.getElementById('filter').classList.remove('blink');
+//         canhbaolocban.style.display = "none";
+//         locSound.pause(); // Dừng âm thanh khi bộ lọc sạch
+//         locSound.currentTime = 0;
+//     } else{
+//         document.getElementById('filter').textContent = 'Very Dirty';
+//         document.getElementById('filter').style.color = 'red';
+//         document.getElementById('filter').classList.add('blink');
+//         canhbaolocban.style.display = "block";
+//         playcanhbao() // Phát âm thanh khi bộ lọc bẩn
+//     }
+// });
         
 //--------------------------------------------ĐIENAP------------------------
 var opts_voltage = {
@@ -859,7 +906,8 @@ var chart_voltage = new Chart(voltage, {
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
-            fill: false
+            fill: false,
+            pointRadius: 0 
         }]
     },
     options: {
@@ -1004,7 +1052,8 @@ var chartIntervalvoltage, historyIntervalvoltage;
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 3,
-                fill: false
+                fill: false,
+                pointRadius: 0 
             }]
         },
         options: {
@@ -1141,7 +1190,8 @@ var chart_frequency = new Chart(frequency, {
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
-            fill: false
+            fill: false,
+            pointRadius: 0 
         }]
     },
     options: {
@@ -1285,7 +1335,8 @@ var chart_speed = new Chart(speed, {
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
-            fill: false
+            fill: false,
+            pointRadius: 0 
         }]
     },
     options: {
@@ -1429,7 +1480,8 @@ var chart_power = new Chart(power, {
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
-            fill: false
+            fill: false,
+            pointRadius: 0 
         }]
     },
     options: {
@@ -1554,3 +1606,40 @@ var chartIntervalpower, historyIntervalpower;
 
 
 
+//-----------------------------------------------------------REPORT EXCEL-----------------------------------------------------------
+function exportToExcel() {
+    // Prepare chart data
+    const chartData = chart_voltage.data.datasets[0].data;
+    const chartLabels = chart_voltage.data.labels;
+
+    // Prepare historical voltage data
+    const historyData = [];
+    for (let i = 0; i < time_voltage.length; i++) {
+        if (time_voltage[i] && value_voltage[i] !== undefined) {
+            historyData.push([time_voltage[i], value_voltage[i]]);
+        }
+    }
+
+    // Create a new workbook and worksheets
+    const workbook = XLSX.utils.book_new();
+
+    // Chart Data Worksheet
+    const chartDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Voltage'],
+        ...chartLabels.map((label, index) => [label, chartData[index]])
+    ]);
+    XLSX.utils.book_append_sheet(workbook, chartDataWorksheet, 'Chart Data');
+
+    // Historical Data Worksheet
+    const historyDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Voltage'],
+        ...historyData
+    ]);
+    XLSX.utils.book_append_sheet(workbook, historyDataWorksheet, 'Historical Data');
+
+    // Save the workbook
+    XLSX.writeFile(workbook, 'VoltageData.xlsx');
+}
+
+// Add an event listener to the export button (assuming there's a button with id 'export-button')
+document.getElementById('export-button').addEventListener('click', exportToExcel);
