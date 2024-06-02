@@ -1475,9 +1475,9 @@ var chart_power = new Chart(power, {
             // },
             y: {
                 min: 0,
-                max: 1000,
+                max: 1,
                 ticks: {
-                    stepSize: 100
+                    stepSize: 0.1
                 }
             }
         }
@@ -1502,7 +1502,7 @@ var chartIntervalpower, historyIntervalpower;
         var gauge_power = new Gauge(target_power).setOptions(opts_power); // create sexy gauge!
         gauge_power.animationSpeed = 32;
     
-        gauge_power.maxValue = 1000; // set max gauge value
+        gauge_power.maxValue = 1; // set max gauge value
         gauge_power.set(power_out);
         //----------------------------- Chart ----------------------------
         // Cập nhật biểu đồ ngay lập tức khi có dữ liệu mới
