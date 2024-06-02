@@ -266,6 +266,19 @@ database.ref("Monitor/Pressure Output/data").on("value", function(snapshot){
 })
 
 // get PresReturn from firebase (auto update when data change)
+database.ref("control/run cm").on("value", function(snapshot){
+    var rcm = snapshot.val();
+    if (rcm == 1) {
+        fanhead.style.display = "none"
+        fanheadoff.style.display = "block"   
+        flow.style.display = "none"
+    } else {
+        fanhead.style.display = "block"
+        fanheadoff.style.display = "none" 
+        flow.style.display = "block"
+    }
+})
+// get PresReturn from firebase (auto update when data change)
 database.ref("Monitor/Pressure Return/data").on("value", function(snapshot){
     var PresReturn = snapshot.val();
     document.getElementById("apsuatreturn").innerHTML = PresReturn;
