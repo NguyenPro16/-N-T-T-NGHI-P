@@ -13,6 +13,7 @@
         <div id="header">
             <ul id="nav">
                 <li><a href="#" onclick="function_gsdk()">Giám sát - Điều khiển</a></li>
+                <li><p>Nguyễn Tấn Bảo 20142466, Trần Tiếp Phúc Nguyên 20142541</p>
             </ul>
         </div>
         <div id="content">
@@ -20,34 +21,37 @@
                 <img src="hinh\logo HCMUTE.jpg" alt="" width="150" height="150" >
                 <div class="text">
                     <h1 class="title">ĐỒ ÁN TỐT NGHIỆP</h1>
-                    <h2 class="title">Ứng dụng BMS điều khiển và giám sát hệ thống AHU </h2>
-                    <p class="title">(điều khiển nhiệt độ không khí thông qua bộ trao đổi nhiệt)</p>
+                    <h2 class="title">ỨNG DỤNG BMS ĐIỀU KHIỂN VÀ GIÁM SÁT HỆ THỐNG AHU </h2>
+                    <!-- <p class="title">(điều khiển nhiệt độ không khí thông qua bộ trao đổi nhiệt)</p> -->
                 </div>
                 <img src="hinh\logo FEEE.jpg" alt=""width="150" height="150">
             </div>
             <div id="khoaweb">
                 <img src="hinh\lock.png" alt="" id="okhoakhoa" class="okhoakhoa" width="60px">
                 <div class="textkhoa">
-                    <label> Web đang bị khóa</label>
-                    <p>chỉ có thể giám sát</p>
+                    <label> Locked website</label>
+                    <p>Web đã bị khóa</p>
                 </div>
             </div>
             <div id="moweb">
                 <img src="hinh\unlock.png" alt="" id="okhoamo" class="okhoamo" width="50px">
                 <div class="textmo">
-                    <label> Web đã mở khóa</label>
+                    <label> Unlocked website</label>
+                    <p>Web đã mở khóa</p>
                 </div>
             </div>
             <div id="canhbaonhapsaibypass">
                 <img src="hinh\warning.png" alt="" id="warning" class="warning" width="50px">
                 <div class="textwarning">
-                    <label>Giá trị không hợp lệ</label>
+                    <label>Invalid value</label>
+                    <p>Giá trị không hợp lệ</p>
                 </div>
             </div>
             <div id="getdata">
                 <img src="hinh\getdata.png" alt="" id="data" class="data" width="50px">
                 <div class="textdata">
-                    <label>Dữ liệu đã được lưu vào hệ thống.</label>
+                    <label>Data Saved</label>
+                    <p>Đã lưu dữ liệu</p>
                 </div>
             </div>
             <div id="mohinh">
@@ -92,7 +96,8 @@
                 <div id="canhbaoapsuatcao">
                     <img src="hinh\warning.png" alt="" id="warningapsuat" class="warningapsuat" width="50px">
                     <div class="textwarningapsuat">
-                        <label>Ống nghẹt, áp suất đường ống cao</label>
+                        <label>High pipeline pressure</label>
+                        <label>Áp suất đường ống cao</label>
                     </div>
                 </div>
                 <div class="gsasr">
@@ -152,9 +157,11 @@
                     </div>                   
                 </div>
                 <div id="canhbaolocban">
-                    <img src="hinh\warning.png" alt="" id="warningloc" class="warningloc" width="50px">
-                    <div class="textwarningloc">
-                        <label>Lọc bẩn, cần thay mới!</label>
+                    <!-- <img src="hinh\warning.png" alt="" id="warningloc" class="warningloc" width="50px"> -->
+                    <div id="textwarningloc">
+                        <img src="hinh\warning.png" alt="" id="warningloc" class="warningloc" width="50px">
+                        <label>Need  to replace filter!</label>
+                        <p>Cần thay bộ lọc</p>
                     </div>
                     <audio id="loc_sound">
                         <source src="hinh/canhbao2.mp3" type="audio/mpeg">
@@ -360,7 +367,7 @@
                                                     </select>
                                                 </div>
                                             </p>
-                                            <p>
+                                            <!-- <p>
                                                 <label >RCM:</label>
                                                 <div class="selectoverenablebientan">
                                                     <select class="rcmbientan" id="rcmlebientan" name="RCM">
@@ -368,7 +375,7 @@
                                                         <option value="2">RUN</option>
                                                     </select>
                                                 </div>
-                                            </p>
+                                            </p> -->
                                             <p>
                                                 <label >ACC:</label>
                                             <input type="number" id="ACC" name="ACC">
@@ -378,7 +385,7 @@
                                                 <input type="number" id="DEC" name="DEC">
                                             </p>                                           
                                                 <button id="write" name="submit" type="submit">SAVE</button>
-                                                <p class="report" onclick="open_sheet()">SHEET</p>                                            
+                                                <p class="report" onclick="open_sheet()">OPEN SHEET</p>                                            
                                         </div>
                                 </form>                              
                                     <div class="block4">

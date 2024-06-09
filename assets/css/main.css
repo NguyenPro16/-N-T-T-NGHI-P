@@ -47,6 +47,19 @@ body{
     text-transform: uppercase; /* viết hoa*/
 }
 
+#nav li p {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+    line-height: 70px;
+    padding: 0px 24px 0px 24px;
+    display: inline-block;
+    text-transform: uppercase; /* viết hoa*/
+}
+
 #nav li a:hover {
     color: #fffc1e;
     background-color: darkblue;
@@ -166,7 +179,7 @@ body{
     top: 80px;
     left: 0;   
     animation: slideInRight 0.5s forwards;
-    z-index: 4;
+    z-index: 5;
 
 }
 
@@ -184,7 +197,7 @@ body{
     top: 10px;
     left: 1550px;
     /* transform: translate(-50%, -50%); */
-    padding: 33px 10px 13px 70px;
+    padding: 15px 10px 13px 70px;
     background: white;
     border-radius: 10px;
     border: 2px solid #074c95;
@@ -219,7 +232,7 @@ body{
     top: 10px;
     left: 1550px;
     /* transform: translate(-50%, -50%); */
-    padding: 33px 10px 13px 70px;
+    padding: 15px 10px 13px 70px;
     background: white;
     border-radius: 10px;
     border: 2px solid #074c95;
@@ -243,7 +256,7 @@ body{
 .warningapsuat{
     position: fixed;
     top: 35px;
-    left: 1575px;
+    left: 1565px;
     /* transform: translate(-50%, -50%); */
     z-index: 4;
 }
@@ -282,14 +295,14 @@ body{
     /* transform: translate(-50%, -50%); */
     z-index: 4;
 }
-.textwarningloc{
+#textwarningloc{
     width: 300px;
     height: 100px;
     position: fixed;
     top: 10px;
     left: 1550px;
     /* transform: translate(-50%, -50%); */
-    padding: 33px 10px 13px 80px;
+    padding: 15px 10px 13px 80px;
     background: white;
     border-radius: 10px;
     border: 2px solid #074c95;
@@ -1212,6 +1225,8 @@ body{
 }
 
 .control .block3 button{
+    margin-top: 20px;
+    margin-left: 60px;
     border-radius: 10px;
     /* background: #074c95; */
     /* color: white; */
@@ -1225,13 +1240,13 @@ body{
 
 .control .block3 .report{
     position: absolute;
-    top: 302px;
-    left: 90px;
+    top: 300px;
+    left: 30px;
     padding: 15px 5px;
     border-radius: 10px;
     background: #074c95;
     color: white;
-    width: 90px;
+    width: 150px;
     height: 48px;
     text-align: center;
     justify-content: center;
@@ -1480,7 +1495,7 @@ body{
 }
 
 .blink {
-    animation: blink 0.5s infinite;
+    animation: blink 2s infinite;
 }
 
 

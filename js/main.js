@@ -113,6 +113,8 @@ database.ref("Monitor/TT Manual/data").on("value", function(snapshot){
         document.getElementById("manualid").src = "hinh/on.png" 
         document.getElementById("offid").src = "hinh/off.png"  
         document.getElementById("autoid").src = "hinh/off.png"
+        document.getElementById("overenablebientan").disabled = false 
+        document.getElementById("Over_Value").disabled = false
     } 
 })
 
@@ -123,6 +125,8 @@ database.ref("Monitor/TT OFF/data").on("value", function(snapshot){
         document.getElementById("manualid").src = "hinh/off.png" 
         document.getElementById("offid").src = "hinh/on.png"  
         document.getElementById("autoid").src = "hinh/off.png"
+        document.getElementById("overenablebientan").disabled = true
+        document.getElementById("Over_Value").disabled = true
     }    
 })
 
@@ -137,6 +141,8 @@ database.ref("Monitor/TT Auto/data").on("value", function(snapshot){
         document.getElementById("autoid").src = "hinh/on.png"
         document.querySelectorAll('.open_modal_btn').disabled = true
         document.querySelector(".open_modal_btnbypass").disabled = true
+        document.getElementById("overenablebientan").disabled = true
+        document.getElementById("Over_Value").disabled = true
     } 
 })
 
@@ -293,11 +299,11 @@ database.ref("Monitor/Temperature Room/data").on("value", function(snapshot){
         var setVal = snapshot.val();
         document.getElementById("nhietdoset").innerHTML = setVal + " °C";
         if (setVal >= TempOut ) {
-            document.getElementById('canhbaonhietdo').textContent = 'Nhiệt độ đạt yêu cầu';
+            document.getElementById('canhbaonhietdo').textContent = 'Temperature OK';
             document.getElementById('canhbaonhietdo').style.color = 'green';
             document.getElementById('canhbaonhietdo').classList.remove('blink');
         } else {
-            document.getElementById('canhbaonhietdo').textContent = 'Nhiệt độ chưa đạt yêu cầu';
+            document.getElementById('canhbaonhietdo').textContent = 'Temperature not OK';
             document.getElementById('canhbaonhietdo').style.color = 'red';
             document.getElementById('canhbaonhietdo').classList.add('blink');
         }
@@ -313,11 +319,11 @@ function checkcheck(){
             var setVal = snapshot.val();
             document.getElementById("nhietdoset").innerHTML = setVal + " °C";
             if (setVal >= TempOut ) {
-                document.getElementById('canhbaonhietdo').textContent = 'Nhiệt độ đạt yêu cầu';
+                document.getElementById('canhbaonhietdo').textContent = 'Temperature OK';
                 document.getElementById('canhbaonhietdo').style.color = 'green';
                 document.getElementById('canhbaonhietdo').classList.remove('blink');
             } else {
-                document.getElementById('canhbaonhietdo').textContent = 'Nhiệt độ chưa đạt yêu cầu';
+                document.getElementById('canhbaonhietdo').textContent = 'Temperature not OK';
                 document.getElementById('canhbaonhietdo').style.color = 'red';
                 document.getElementById('canhbaonhietdo').classList.add('blink');
             }
@@ -595,7 +601,7 @@ document.getElementById('write').addEventListener('click', function(){
     var selectoveranable = document.getElementById('overenablebientan').value;
     var overValueVal = document.getElementById('Over_Value').value;
     var selectlock = document.getElementById('locklebientan').value;
-    var selectrcm = document.getElementById('rcmlebientan').value;
+    // var selectrcm = document.getElementById('rcmlebientan').value;
     var accVal = document.getElementById('ACC').value;
     var decVal = document.getElementById('DEC').value;
     var fanhead = document.getElementById("fanhead");
@@ -611,19 +617,19 @@ document.getElementById('write').addEventListener('click', function(){
         "over enable ao1" : selectoveranable,
         "over value ao1": overValueVal,
         "lock" : selectlock,
-        "run cm" : selectrcm,
+        // "run cm" : selectrcm,
         "acc": accVal,
         "dec": decVal
     });
-        if (selectrcm == 1) {
-        fanhead.style.display = "none"
-        fanheadoff.style.display = "block"   
-        flow.style.display = "none"
-    } else {
-        fanhead.style.display = "block"
-        fanheadoff.style.display = "none" 
-        flow.style.display = "block"
-    }
+    //     if (selectrcm == 1) {
+    //     fanhead.style.display = "none"
+    //     fanheadoff.style.display = "block"   
+    //     flow.style.display = "none"
+    // } else {
+    //     fanhead.style.display = "block"
+    //     fanheadoff.style.display = "none" 
+    //     flow.style.display = "block"
+    // }
     checkcheck()
     getdata.style.display = "block" 
     setTimeout(() => {
@@ -806,7 +812,8 @@ var locSound = document.getElementById("loc_sound");
             document.getElementById('filter').textContent = 'Very Dirty';
             document.getElementById('filter').style.color = 'red';
             document.getElementById('filter').classList.add('blink');
-            canhbaolocban.style.display = "block"
+            canhbaolocban.style.display = "block";
+            document.getElementById('textwarningloc').classList.add('blink');
             locSound.play();
             console.log(locSound)
         }
@@ -914,7 +921,6 @@ var content_row_voltage = document.querySelectorAll(".content-row-voltage");
 var time_voltage = [];
 var value_voltage = [];
 var j = 0;
-var voltage_out = 0;
 // Đảm bảo rằng setInterval chỉ được tạo một lần
 var chartIntervalvoltage, historyIntervalvoltage;
     database.ref("Monitor/Voltage/data").on("value", function (snapshot) {
@@ -935,6 +941,19 @@ var chartIntervalvoltage, historyIntervalvoltage;
         //----------------------------- Table ----------------------------
         // Cập nhật dữ liệu lịch sử ngay lập tức khi có dữ liệu mới
         updateHistoryDatavoltage(voltage_out);
+        // Bắt đầu cập nhật biểu đồ mỗi giây
+        if (!chartIntervalvoltage) {
+            chartInterval = setInterval(() => {
+                updateChartvoltage(voltage_out);
+            }, 1000);
+        }
+
+        // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây
+        if (!historyIntervalvoltage) {
+            historyInterval = setInterval(() => {
+                updateHistoryDatavoltage(voltage_out);
+            }, 1000);
+        }
     });
         function updateChartvoltage(voltage_out){
             var time = new Date().toLocaleTimeString();
@@ -984,19 +1003,6 @@ var chartIntervalvoltage, historyIntervalvoltage;
             content_row_voltage[13].innerHTML = value_voltage[5] + " V";
             content_row_voltage[14].innerHTML = time_voltage[6];
             content_row_voltage[15].innerHTML = value_voltage[6] + " V";
-        }
-            // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
-        if (!chartIntervalvoltage) {
-            chartInterval = setInterval(() => {
-                updateChartvoltage(voltage_out);
-            }, 1000);
-        }
-
-        // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
-        if (!historyIntervalvoltage) {
-            historyInterval = setInterval(() => {
-                updateHistoryDatavoltage(voltage_out);
-            }, 1000);
         }
 // ----------------------------------------DONGDIEN---------------------------------------------------------
     var opts_current = {
@@ -1052,8 +1058,6 @@ var chartIntervalvoltage, historyIntervalvoltage;
     var time_current = [];
     var value_current = [];
     var j = 0;
-    var current_out = 0;
-    
     // Đảm bảo rằng setInterval chỉ được tạo một lần
     var chartIntervalcurrent, historyIntervalcurrent;
     
@@ -1074,6 +1078,19 @@ var chartIntervalvoltage, historyIntervalvoltage;
         //----------------------------- Table ----------------------------
         // Cập nhật dữ liệu lịch sử ngay lập tức khi có dữ liệu mới
         updateHistoryDatacurrent(current_out);
+        // Bắt đầu cập nhật biểu đồ mỗi giây
+        if (!chartIntervalcurrent) {
+            chartInterval = setInterval(() => {
+                updateChartcurrent(current_out);
+            }, 1000);
+        }
+        
+        // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây
+        if (!historyIntervalcurrent) {
+            historyInterval = setInterval(() => {
+                updateHistoryDatacurrent(current_out);
+            }, 1000);
+        }
     });
     
     function updateChartcurrent(current_out) {
@@ -1121,20 +1138,6 @@ var chartIntervalvoltage, historyIntervalvoltage;
         content_row_current[13].innerHTML = value_current[5] + " A";
         content_row_current[14].innerHTML = time_current[6];
         content_row_current[15].innerHTML = value_current[6] + " A";
-    }
-    
-    // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
-    if (!chartIntervalcurrent) {
-        chartInterval = setInterval(() => {
-            updateChartcurrent(current_out);
-        }, 1000);
-    }
-    
-    // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
-    if (!historyIntervalcurrent) {
-        historyInterval = setInterval(() => {
-            updateHistoryDatacurrent(current_out);
-        }, 1000);
     }  
 // ----------------------------------------TANSO---------------------------------------------------------
 var opts_frequency = {
@@ -1198,8 +1201,6 @@ var content_row_frequency = document.querySelectorAll(".content-row-frequency");
 var time_frequency = [];
 var value_frequency = [];
 var j = 0;
-var frequency_out = 0;
-    
 // Đảm bảo rằng setInterval chỉ được tạo một lần
 var chartIntervalfrequency, historyIntervalfrequency;
     database.ref("Monitor/Frequency/data").on("value", function (snapshot) {
@@ -1220,6 +1221,19 @@ var chartIntervalfrequency, historyIntervalfrequency;
         //----------------------------- Table ----------------------------
         // Cập nhật dữ liệu lịch sử ngay lập tức khi có dữ liệu mới
         updateHistoryDatafrequency(frequency_out);
+        // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
+        if (!chartIntervalfrequency) {
+            chartInterval = setInterval(() => {
+                updateChartfrequency(frequency_out);
+            }, 1000);
+        }
+        
+        // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
+        if (!historyIntervalfrequency) {
+            historyInterval = setInterval(() => {
+                updateHistoryDatafrequency(frequency_out);
+            }, 1000);
+        }      
     });
         function updateChartfrequency(frequency_out){
             var time = new Date().toLocaleTimeString();
@@ -1268,19 +1282,6 @@ var chartIntervalfrequency, historyIntervalfrequency;
             content_row_frequency[14].innerHTML = time_frequency[6];
             content_row_frequency[15].innerHTML = value_frequency[6] + " Hz";
         }
-    // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
-    if (!chartIntervalfrequency) {
-        chartInterval = setInterval(() => {
-            updateChartfrequency(frequency_out);
-        }, 1000);
-    }
-    
-    // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
-    if (!historyIntervalfrequency) {
-        historyInterval = setInterval(() => {
-            updateHistoryDatafrequency(frequency_out);
-        }, 1000);
-    } 
 // ----------------------------------------TOCDO---------------------------------------------------------
 var opts_speed = {
     angle: -0.2,
@@ -1343,8 +1344,6 @@ var content_row_speed = document.querySelectorAll(".content-row-speed");
 var time_speed = [];
 var value_speed = [];
 var j = 0;
-var speed_out = 0;
-    
 // Đảm bảo rằng setInterval chỉ được tạo một lần
 var chartIntervalspeed, historyIntervalspeed;
     database.ref("Monitor/RPM/data").on("value", function (snapshot) {
@@ -1365,6 +1364,19 @@ var chartIntervalspeed, historyIntervalspeed;
         //----------------------------- Table ----------------------------
         // Cập nhật dữ liệu lịch sử ngay lập tức khi có dữ liệu mới
         updateHistoryDataspeed(speed_out);
+        // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
+        if (!chartIntervalspeed) {
+            chartInterval = setInterval(() => {
+                updateChartspeed(speed_out);
+            }, 1000);
+        }
+        
+        // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
+        if (!historyIntervalspeed) {
+            historyInterval = setInterval(() => {
+                updateHistoryDataspeed(speed_out);
+            }, 1000);
+        }
     });
     function updateChartspeed(speed_out) {
         var time = new Date().toLocaleTimeString();
@@ -1413,19 +1425,6 @@ var chartIntervalspeed, historyIntervalspeed;
             content_row_speed[14].innerHTML = time_speed[6];
             content_row_speed[15].innerHTML = value_speed[6] + " rpm";
         }
-    // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
-    if (!chartIntervalspeed) {
-        chartInterval = setInterval(() => {
-            updateChartspeed(speed_out);
-        }, 1000);
-    }
-    
-    // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
-    if (!historyIntervalspeed) {
-        historyInterval = setInterval(() => {
-            updateHistoryDataspeed(speed_out);
-        }, 1000);
-    }
 // ----------------------------------------CONGSUAT---------------------------------------------------------
 var opts_power = {
     angle: -0.2,
@@ -1510,6 +1509,19 @@ var chartIntervalpower, historyIntervalpower;
         //----------------------------- Table ----------------------------
         // Cập nhật dữ liệu lịch sử ngay lập tức khi có dữ liệu mới
         updateHistoryDatapower(current_out);
+        // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
+        if (!chartIntervalpower) {
+            chartInterval = setInterval(() => {
+                updateChartpower(power_out);
+            }, 1000);
+        }
+        
+        // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
+        if (!historyIntervalpower) {
+            historyInterval = setInterval(() => {
+                updateHistoryDatapower(power_out);
+            }, 1000);
+        }
     });
         //----------------------------- Chart ----------------------------
     function updateChartpower(power_out) {
@@ -1559,19 +1571,6 @@ var chartIntervalpower, historyIntervalpower;
             content_row_power[14].innerHTML = time_power[6];
             content_row_power[15].innerHTML = value_power[6] + " kW";
         }
-    // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
-    if (!chartIntervalpower) {
-        chartInterval = setInterval(() => {
-            updateChartpower(power_out);
-        }, 1000);
-    }
-    
-    // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
-    if (!historyIntervalpower) {
-        historyInterval = setInterval(() => {
-            updateHistoryDatapower(power_out);
-        }, 1000);
-    }
      
 
 
