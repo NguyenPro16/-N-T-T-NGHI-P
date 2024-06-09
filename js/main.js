@@ -143,6 +143,10 @@ database.ref("Monitor/TT Auto/data").on("value", function(snapshot){
         document.querySelector(".open_modal_btnbypass").disabled = true
         document.getElementById("overenablebientan").disabled = true
         document.getElementById("Over_Value").disabled = true
+        // Đặt giá trị của phần tử select về 0
+        document.getElementById('overenablebientan').value = '0';           
+        // Đặt giá trị của phần tử input về chuỗi trống
+        document.getElementById('Over_Value').value = '';
     } 
 })
 
