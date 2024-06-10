@@ -476,11 +476,17 @@ document.getElementById('set').addEventListener('click', function(){
         warning.style.display = "block"      
     }
 });
-// get tempsetVal from firebase (auto update when data change)
-// database.ref("control/set temp").on("value", function(snapshot){
-//     var tempset = snapshot.val();
-//     document.getElementById("tempset").innerHTML = tempset;
-// })
+
+document.getElementById('setoverenable').addEventListener('click', function(){
+    // Lấy giá trị từ các input
+    var selectoveranable = document.getElementById('overenablebientan').value;
+    var overValueVal = document.getElementById('Over_Value').value;
+    // Gửi dữ liệu mới qua Firebase
+    database.ref("control").update({
+        "over enable ao1" : selectoveranable,
+        "over value ao1": overValueVal,
+    });
+});
 
  //--------------------------biến--------------
  var mohinh = document.getElementById("mohinh");
@@ -574,6 +580,8 @@ database.ref("Monitor/cam web/data").on("value", function(snapshot){
           });
     }
 })
+
+
 //-------------------------------------------Filter----------------------------------------
 var opts_filter = {
     angle: -0.2,
