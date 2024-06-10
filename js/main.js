@@ -24,22 +24,6 @@ const firebaseConfig = {
 setTimeout(function() {
     function_gsdk();
 }, 5000);
-// -----------------modal_valve_bypass-------------------------
-var btnopen_bypass = document.querySelector('.open_modal_btnbypass');
-var modal_bypass = document.querySelector('.modalbypass');
-var iconclose_bypass = document.querySelector('.modalbypass_header i');
-
-function toggleModalBypass() {
-    modal_bypass.classList.toggle('hide');
-}
-
-btnopen_bypass.addEventListener('click', toggleModalBypass);
-iconclose_bypass.addEventListener('click', toggleModalBypass);
-modal_bypass.addEventListener('click', function(e) {
-    if (e.target == e.currentTarget) {
-        toggleModalBypass()
-    }
-})
 // -----------------modal_valve -------------------------
 var btnsopen = document.querySelectorAll('.open_modal_btn');
 var modal = document.querySelector('.modal');
@@ -57,6 +41,22 @@ iconclose.addEventListener('click', toggleModal);
 modal.addEventListener('click', function(e) {
     if (e.target == e.currentTarget) {
         toggleModal();
+    }
+})
+// -----------------modal_valve_bypass-------------------------
+var btnopen_bypass = document.querySelector('.open_modal_btnbypass');
+var modal_bypass = document.querySelector('.modalbypass');
+var iconclose_bypass = document.querySelector('.modalbypass_header i');
+
+function toggleModalBypass() {
+    modal_bypass.classList.toggle('hide');
+}
+
+btnopen_bypass.addEventListener('click', toggleModalBypass);
+iconclose_bypass.addEventListener('click', toggleModalBypass);
+modal_bypass.addEventListener('click', function(e) {
+    if (e.target == e.currentTarget) {
+        toggleModalBypass()
     }
 })
 // -------------------------modal_fan-------------------------------------
@@ -276,9 +276,9 @@ database.ref("Monitor/Pressure Output/data").on("value", function(snapshot){
 })
 
 // get PresReturn from firebase (auto update when data change)
-database.ref("control/run cm").on("value", function(snapshot){
-    var rcm = snapshot.val();
-    if (rcm == 1) {
+database.ref("Monitor/TT FAN/data").on("value", function(snapshot){
+    var TTFAN = snapshot.val();
+    if (TTFAN == 1) {
         fanhead.style.display = "none"
         fanheadoff.style.display = "block"   
         flow.style.display = "none"
@@ -483,7 +483,7 @@ database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
 })
 
 // get BYPASS from firebase (auto update when data change)
-// database.ref("control/over value ao2").on("value", function(snapshot){
+// database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
 //     var bypass1 = snapshot.val();
 //     if(bypass1 >= 0 && bypass1 <= 100){
 //         valve3_1.style.display = "block";
