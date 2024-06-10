@@ -115,7 +115,7 @@ database.ref("Monitor/TT Manual/data").on("value", function(snapshot){
         document.getElementById("autoid").src = "hinh/off.png"
         document.getElementById("overenablebientan").disabled = false 
         document.getElementById("Over_Value").disabled = false
-    } 
+    }
 })
 
 // get Off from firebase (auto update when data change)
@@ -248,7 +248,7 @@ database.ref("Monitor/RPM/data").on("value", function(snapshot){
 
 database.ref("Monitor/Power/data").on("value", function(snapshot){
     var Power = snapshot.val();
-    document.getElementById("value-power-monitor").innerHTML = Power + " kW";
+    document.getElementById("value-power-monitor").innerHTML = Power + " W";
 })
 
 // get Tempsupply from firebase (auto update when data change)
@@ -1481,9 +1481,9 @@ var chart_power = new Chart(power, {
             // },
             y: {
                 min: 0,
-                max: 1,
+                max: 1000,
                 ticks: {
-                    stepSize: 0.1
+                    stepSize: 100
                 }
             }
         }
@@ -1501,14 +1501,14 @@ var chartIntervalpower, historyIntervalpower;
     database.ref("Monitor/Power/data").on("value", function (snapshot) {
         //----------------------------- Gauge ----------------------------
         power_out = snapshot.val();
-        document.getElementById("power").innerHTML = power_out + " kW";    
+        document.getElementById("power").innerHTML = power_out + " W";    
         
         var target_power = document.getElementById('gauge-power'); // your canvas element
         var ctx = target_power.getContext('2d');
         var gauge_power = new Gauge(target_power).setOptions(opts_power); // create sexy gauge!
         gauge_power.animationSpeed = 32;
     
-        gauge_power.maxValue = 1; // set max gauge value
+        gauge_power.maxValue = 1000; // set max gauge value
         gauge_power.set(power_out);
         //----------------------------- Chart ----------------------------
         // Cập nhật biểu đồ ngay lập tức khi có dữ liệu mới
@@ -1564,19 +1564,19 @@ var chartIntervalpower, historyIntervalpower;
                 value_power[6] = power_out;
             }
             content_row_power[2].innerHTML = time_power[0];
-            content_row_power[3].innerHTML = value_power[0] + " kW";
+            content_row_power[3].innerHTML = value_power[0] + " W";
             content_row_power[4].innerHTML = time_power[1];
-            content_row_power[5].innerHTML = value_power[1] + " kW";
+            content_row_power[5].innerHTML = value_power[1] + " W";
             content_row_power[6].innerHTML = time_power[2];
-            content_row_power[7].innerHTML = value_power[2] + " kW";
+            content_row_power[7].innerHTML = value_power[2] + " W";
             content_row_power[8].innerHTML = time_power[3];
-            content_row_power[9].innerHTML = value_power[3] + " kW";
+            content_row_power[9].innerHTML = value_power[3] + " W";
             content_row_power[10].innerHTML = time_power[4];
-            content_row_power[11].innerHTML = value_power[4] + " kW";
+            content_row_power[11].innerHTML = value_power[4] + " W";
             content_row_power[12].innerHTML = time_power[5];
-            content_row_power[13].innerHTML = value_power[5] + " kW";
+            content_row_power[13].innerHTML = value_power[5] + " W";
             content_row_power[14].innerHTML = time_power[6];
-            content_row_power[15].innerHTML = value_power[6] + " kW";
+            content_row_power[15].innerHTML = value_power[6] + " W";
         }
      
 
