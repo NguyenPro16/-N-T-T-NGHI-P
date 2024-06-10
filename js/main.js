@@ -255,7 +255,7 @@ var canhbaoapsuatcao = document.getElementById("canhbaoapsuatcao")
 database.ref("Monitor/Pressure Output/data").on("value", function(snapshot){
     var PresSupply = snapshot.val();
     document.getElementById("apsuatsupply").innerHTML = PresSupply;
-    if (PresSupply >= 2) {
+    if (PresSupply >= 1.49) {
         canhbaoapsuatcao.style.display = "block";
         locSound.play();
     } else {
@@ -617,15 +617,8 @@ var locSound = document.getElementById("loc_sound");
             canhbaolocban.style.display = "none"
             locSound.pause();
             locSound.currentTime = 0;
-        } else if(filter_out > 50 && filter_out <= 80) {
-            document.getElementById('filter').textContent = 'Dirty';
-            document.getElementById('filter').style.color = 'yellow';
-            document.getElementById('filter').classList.remove('blink');
-            canhbaolocban.style.display = "none"
-            locSound.pause();
-            locSound.currentTime = 0;
         } else{
-            document.getElementById('filter').textContent = 'Very Dirty';
+            document.getElementById('filter').textContent = 'Dirty';
             document.getElementById('filter').style.color = 'red';
             document.getElementById('filter').classList.add('blink');
             canhbaolocban.style.display = "block";
