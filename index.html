@@ -109,7 +109,6 @@
                         <label>Time:</label>
                         <span id="current_time"></span>
                     </div>
-                    <h1 class="headermode">AHU</h1>
                     <h2 class="headermode_bms">Control Mode</h2>
                     <img id="manualid" class="manual"  src="hinh\on.png" alt="" width="20px">
                     <div class="btncontrol">
@@ -128,7 +127,18 @@
                         <input type="number" id="tempset"> 
                         <button id="set">SET</button>
                     </div>
-                    
+                    <div class="overenable">
+                        <label class="mot" >Over Enable:</label>
+                        <div class="selectoverenablebientan">
+                            <select class="overenablebientan" id="overenablebientan" name="Over Enable">
+                                <option value="0">OFF</option>
+                                <option value="1">ON</option>
+                            </select>
+                        </div>                                     
+                        <label class="hai">Over Value:</label>
+                        <input type="number" id="Over_Value" name="Over Value" max="50" min="20" placeholder="20-50"> 
+                        <button id="setoverenable">SET</button>                      
+                    </div>
                 </div>
                 <div class="gsnddr">
                     <h2 >  
@@ -139,13 +149,6 @@
                     </h2>
                     <div class="canhbao" id="canhbaonhietdo"></div>
                 </div>
-                <!-- <div class="gsdadr">
-                    <h2 >  
-                        <label> HumRoom:</label>
-                        <span id="doamdaura"></span> 
-                    </h2>
-                    <div class="canhbao" id="canhbaodoam"></div>
-                </div> -->
                 <div class="giamsatchenhap">
                     <h2 >  
                         <label>PressDiff:</label>
@@ -157,7 +160,6 @@
                     </div>                   
                 </div>
                 <div id="canhbaolocban">
-                    <!-- <img src="hinh\warning.png" alt="" id="warningloc" class="warningloc" width="50px"> -->
                     <div id="textwarningloc">
                         <img src="hinh\warning.png" alt="" id="warningloc" class="warningloc" width="50px">
                         <label>Need  to replace filter!</label>
@@ -182,8 +184,7 @@
                     <button class="open_modal_btn"> <img src="hinh\valve.png" alt="" width="170px"></button>
                 </div>
                 <img id="close_open_supply_ngoai" src="hinh\on.png" alt="" width="37px">
-                <img id="close_open_return_ngoai" src="hinh\on.png" alt="" width="37px">
-                <!-- <img id="close_open_bypass_ngoai" src="img\on.png" alt="" width="37px"> -->
+                <img id="close_open_return_ngoai" src="hinh\on.png" alt="" width="37px">               
                 <div class="circle_ngoai">
                     <div class="fill_ngoai" id="fill_ngoai"></div>
                 </div>
@@ -319,119 +320,8 @@
                                         <img class="icon-para-monitor" src="hinh\speed.png" alt="">
                                         <div id="value-speed-monitor" class="value-para-monitor"></div>
                                     </li>
-                                    <li class="para-monitor"onclick="function_power()">
-                                        <p class="title-para-monitor">Power</p>
-                                        <img class="icon-para-monitor_power" src="hinh\power.png" alt="">
-                                        <div id="value-power-monitor" class="value-para-monitor"></div>
-                                    </li>
                                 </ul>
                             </section>
-                            <h2 id ="fan">FAN CONTROL</h2>
-                            <div class="control">
-                                <iframe name="hiddenFrame" width="0" height="0" style="display: none;"></iframe>
-                                <form onsubmit="submitted=true;" target="hiddenFrame" class="text-left"  role="form" id="ss-form" method="get" action="https://script.google.com/macros/s/AKfycbz8rKgb3cDR-QPk4TUiBfWtDFrPCmQf_zWtNORKWBZR4aZ1o6RnBzSnnPBhGzuv_l0s/exec">
-                                    <div class="input-group">  
-                                        <div class="block1">
-                                            <p>
-                                                <label >Min Value:</label>
-                                                <input type="number" id="Min_Value" name="Min Value">
-                                            </p>
-                                            <p>
-                                                <label >Max Value:</label>
-                                                <input type="number" id="Max_Value" name="Max Value">
-                                            </p>
-                                            <p>
-                                                <label >Set Point:</label>
-                                                <input type="number" id="Set_Point" name="Set Point">
-                                            </p>
-                                        </div>
-                                        <div class="block2">
-                                            <label >Over Enable:</label>
-                                            <div class="selectoverenablebientan">
-                                                <select class="overenablebientan" id="overenablebientan" name="Over Enable">
-                                                    <option value="0">OFF</option>
-                                                    <option value="1">ON</option>
-                                                </select>
-                                            </div>                                     
-                                                <label >Over Value:</label>
-                                                <input type="number" id="Over_Value" name="Over Value">
-                                            
-                                        </div>
-                                        <div class="block3">
-                                            <p>
-                                                <label >LOCK:</label>
-                                                <div class="selectoverenablebientan">
-                                                    <select class="lockbientan" id="locklebientan" name="LOCK">
-                                                        <option value="1">UNLOCK</option>
-                                                        <option value="0">LOCK</option>
-                                                    </select>
-                                                </div>
-                                            </p>
-                                            <!-- <p>
-                                                <label >RCM:</label>
-                                                <div class="selectoverenablebientan">
-                                                    <select class="rcmbientan" id="rcmlebientan" name="RCM">
-                                                        <option value="1">STOP</option>
-                                                        <option value="2">RUN</option>
-                                                    </select>
-                                                </div>
-                                            </p> -->
-                                            <p>
-                                                <label >ACC:</label>
-                                            <input type="number" id="ACC" name="ACC">
-                                            </p>
-                                            <p>
-                                                <label >DEC:</label>
-                                                <input type="number" id="DEC" name="DEC">
-                                            </p>                                           
-                                                <button id="write" name="submit" type="submit">SAVE</button>
-                                                <p class="report" onclick="open_sheet()">OPEN SHEET</p>                                            
-                                        </div>
-                                </form>                              
-                                    <div class="block4">
-                                        <div class="body_support">
-                                            <table>
-                                                <tr>
-                                                    <td>Min Value</td>
-                                                    <td>Giá trị nhỏ nhất</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Max Value</td>
-                                                    <td>Giá trị lớn nhất</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Set Point</td>
-                                                    <td>Giá trị thiết lập</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Over Enable</td>
-                                                    <td>Cho phép cưỡng bức</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Over Value</td>
-                                                    <td>Giá trị cưỡng bức</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>LOCK (Parameter Lock)</td>
-                                                    <td>Khóa thanh ghi</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>RCM (Run Command)</td>
-                                                    <td>Điều khiển động cơ</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>ACC (Acceleration Time)</td>
-                                                    <td>Thời gian tăng tốc</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>DEC (Deceleration Time)</td>
-                                                    <td>Thời gian giảm tốc</td>
-                                                </tr>
-                                            </table>                                            
-                                        </div>
-                                    </div>
-                                </div>                                
-                            </div>
                         </div>
                     </div>
                 </div>                
@@ -645,58 +535,6 @@
                     <div id="frame-chart-speed" class="frame-chart">
                         <p id="frame-chart-speed-text" class="frame-chart-text">Chart Speed</p>
                         <canvas id="chart-speed" class="chart"></canvas>
-                    </div>
-                </div>              
-            </div>
-            <div id="giamsatcongsuat">
-                <div id="sheet-speed" class="sheet" >
-                    <p class="report" onclick="exportPowerToExcel()">Report</p>
-                    <table id="table-sheet-power" class="table-sheet">
-                        <div class="body-sheet">
-                            <tr class="title-col-sheet">
-                                <th class="content-row-power">Thời gian</th>
-                                <th class="content-row-power">Công suất</th>
-                            </tr>
-                            <tr class="title-col-sheet">
-                                <td class="content-row-power"></td>
-                                <td class="content-row-power"></td>
-                            </tr>
-                            <tr class="title-col-sheet">
-                                <td class="content-row-power"></td>
-                                <td class="content-row-power"></td>
-                            </tr>
-                            <tr class="title-col-sheet">
-                                <td class="content-row-power"></td>
-                                <td class="content-row-power"></td>
-                            </tr>
-                            <tr class="title-col-sheet">
-                                <td class="content-row-power"></td>
-                                <td class="content-row-power"></td>
-                            </tr>
-                            <tr class="title-col-sheet">
-                                <td class="content-row-power"></td>
-                                <td class="content-row-power"></td>
-                            </tr>
-                            <tr class="title-col-sheet">
-                                <td class="content-row-power"></td>
-                                <td class="content-row-power"></td>
-                            </tr>
-                            <tr class="title-col-sheet">
-                                <td class="content-row-power"></td>
-                                <td class="content-row-power"></td>
-                            </tr>
-                        </div>
-                    </table>
-                </div>
-                <div id="frame-gauge-power" class="frame-gauge">
-                    <p id="frame-gauge-power-text" class="frame-gauge-text">Gauge Power</p>
-                    <canvas id="gauge-power" class="gauge"></canvas>
-                    <div id="power" class="value"></div>
-                </div>
-                <div id="power-monitor">
-                    <div id="frame-chart-power" class="frame-chart">
-                        <p id="frame-chart-power-text" class="frame-chart-text">Chart Power</p>
-                        <canvas id="chart-power" class="chart"></canvas>
                     </div>
                 </div>              
             </div>

@@ -79,7 +79,6 @@ modal_fan.addEventListener('click', function(e){
 var btnManual = document.getElementById("btnmanual");
 var btnOff = document.getElementById("btnoff");
 var btnAuto = document.getElementById("btnauto");
-var btnwrite = document.querySelector("#write");
 var btnset = document.querySelector("#set");
 
 btnManual.onclick = function(){
@@ -96,6 +95,7 @@ btnOff.onclick = function(){
     database.ref("Monitor/TT Auto").update({"data" : 0})
     database.ref("control").update({"manual" : 0})
     database.ref("control").update({"auto" : 0})
+    database.ref("Monitor/TT FAN").update({"data" : 1})
 }
 
 btnAuto.onclick = function(){
@@ -104,6 +104,7 @@ btnAuto.onclick = function(){
     database.ref("Monitor/TT Auto").update({"data" : 1})
     database.ref("control").update({"manual" : 0})
     database.ref("control").update({"auto" : 1})
+    database.ref("Monitor/TT FAN").update({"data" : 2})
 }
 
 // get Manual from firebase (auto update when data change)
@@ -113,8 +114,6 @@ database.ref("Monitor/TT Manual/data").on("value", function(snapshot){
         document.getElementById("manualid").src = "hinh/on.png" 
         document.getElementById("offid").src = "hinh/off.png"  
         document.getElementById("autoid").src = "hinh/off.png"
-        document.getElementById("overenablebientan").disabled = false 
-        document.getElementById("Over_Value").disabled = false
     }
 })
 
@@ -125,13 +124,8 @@ database.ref("Monitor/TT OFF/data").on("value", function(snapshot){
         document.getElementById("manualid").src = "hinh/off.png" 
         document.getElementById("offid").src = "hinh/on.png"  
         document.getElementById("autoid").src = "hinh/off.png"
-        document.getElementById("overenablebientan").disabled = true
-        document.getElementById("Over_Value").disabled = true
     }    
 })
-
-
-
 // get Auto from firebase (auto update when data change)
 database.ref("Monitor/TT Auto/data").on("value", function(snapshot){
     var autoVal = snapshot.val();
@@ -139,10 +133,27 @@ database.ref("Monitor/TT Auto/data").on("value", function(snapshot){
         document.getElementById("manualid").src = "hinh/off.png" 
         document.getElementById("offid").src = "hinh/off.png"  
         document.getElementById("autoid").src = "hinh/on.png"
+    } 
+})
+
+database.ref("control/manual").on("value", function(snapshot){
+    var manualValcontrol = snapshot.val();
+    if(manualValcontrol==1){
+        document.getElementById("overenablebientan").disabled = false 
+        document.getElementById("Over_Value").disabled = false
+        document.getElementById("setoverenable").disabled = false
+    }
+})
+
+// get Auto from firebase (auto update when data change)
+database.ref("control/auto").on("value", function(snapshot){
+    var autoValcontrol = snapshot.val();
+    if(autoValcontrol==1){
         document.querySelectorAll('.open_modal_btn').disabled = true
         document.querySelector(".open_modal_btnbypass").disabled = true
         document.getElementById("overenablebientan").disabled = true
         document.getElementById("Over_Value").disabled = true
+        document.getElementById("setoverenable").disabled = true
         // Đặt giá trị của phần tử select về 0
         document.getElementById('overenablebientan').value = '0';           
         // Đặt giá trị của phần tử input về chuỗi trống
@@ -188,25 +199,6 @@ btnOff02.onclick = function(){
     valve2.style.display = "none"
 }
 
-//----------web to firebse---------funtion button 03----------------------------------
-
-// var btnOn03 = document.getElementById("btnOnId_03");
-// var btnOff03 = document.getElementById("btnOffId_03");
-
-// btnOn03.onclick = function(){
-//     document.getElementById("close_open_bypass").src = "./img/on.png"
-    
-//     database.ref("control").update({"bypass" : 1})
-// }
-
-// btnOff03.onclick = function(){
-//     document.getElementById("close_open_bypass").src = "./img/off.png" 
-
-//     database.ref("control").update({"bypass" : 0})
-// }
-
-//---------firebase to web -----------------------------
-
 // get overenable from firebase (auto update when data change)
 var btnsave = document.getElementById("save")
 database.ref("control/over enable ao2").on("value", function(snapshot){
@@ -246,11 +238,6 @@ database.ref("Monitor/RPM/data").on("value", function(snapshot){
     document.getElementById("value-speed-monitor").innerHTML = Speed + " rpm";
 })
 
-database.ref("Monitor/Power/data").on("value", function(snapshot){
-    var Power = snapshot.val();
-    document.getElementById("value-power-monitor").innerHTML = Power + " W";
-})
-
 // get Tempsupply from firebase (auto update when data change)
 database.ref("Monitor/Temperature Output/data").on("value", function(snapshot){
     var TempSupply = snapshot.val();
@@ -268,14 +255,19 @@ var canhbaoapsuatcao = document.getElementById("canhbaoapsuatcao")
 database.ref("Monitor/Pressure Output/data").on("value", function(snapshot){
     var PresSupply = snapshot.val();
     document.getElementById("apsuatsupply").innerHTML = PresSupply;
-    if (PresSupply >= 3) {
-        canhbaoapsuatcao.style.display = "block"
+    if (PresSupply >= 2) {
+        canhbaoapsuatcao.style.display = "block";
+        locSound.play();
     } else {
-        canhbaoapsuatcao.style.display = "none"
+        canhbaoapsuatcao.style.display = "none";
+        locSound.pause();
+        locSound.currentTime = 0;
     }
 })
 
-// get PresReturn from firebase (auto update when data change)
+var fanhead = document.getElementById("fanhead");
+var fanheadoff = document.getElementById("fanheadoff")
+var flow = document.getElementById("flow")
 database.ref("Monitor/TT FAN/data").on("value", function(snapshot){
     var TTFAN = snapshot.val();
     if (TTFAN == 1) {
@@ -335,112 +327,10 @@ function checkcheck(){
     })
 }
 
-// Xác định một hàm để kiểm tra điều kiện và cập nhật giao diện người dùng
-// function checkTemperaturein() {
-//     var TempOut = document.getElementById("nhietdodaura").textContent;
-//     var setVal = document.getElementById('Set_Point').value;
-//     var warningElement = document.getElementById('canhbaonhietdo');
-
-//     if (setVal >= TempOut ) {
-//         warningElement.textContent = 'Nhiệt độ đạt yêu cầu';
-//         warningElement.style.color = 'green';
-//         warningElement.classList.remove('blink');
-//     } else {
-//         warningElement.textContent = 'Nhiệt độ chưa đạt yêu cầu';
-//         warningElement.style.color = 'red';
-//         warningElement.classList.add('blink');
-//     }
-// }
-
-// function checkTemperatureout() {
-//     var TempOut = document.getElementById("nhietdodaura").textContent;
-//     var warningElement = document.getElementById('canhbaonhietdo');
-//     var tempsetVal = document.getElementById('tempset').value;
-
-//     if (tempsetVal >= TempOut ) {
-//         warningElement.textContent = 'Nhiệt độ đạt yêu cầu';
-//         warningElement.style.color = 'green';
-//         warningElement.classList.remove('blink');
-//     } else {
-//         warningElement.textContent = 'Nhiệt độ chưa đạt yêu cầu';
-//         warningElement.style.color = 'red';
-//         warningElement.classList.add('blink');
-//     }
-// }
-
-// // Gọi hàm checkTemperature mỗi khi giá trị của setVal thay đổi
-// database.ref("Monitor/Temperature Room/data").on("value", function(snapshot){
-//     var TempOut = snapshot.val();
-//     document.getElementById("nhietdodaura").innerHTML = TempOut + " °C";
-//     checkTemperaturein();
-//     checkTemperatureout(); // Gọi hàm kiểm tra điều kiện
-// });
-
-// Gọi hàm checkTemperature mỗi khi giá trị của trường nhập liệu 'Set_Point' thay đổi
-document.getElementById('Set_Point').addEventListener('change', function() {
-    checkcheck(); // Gọi hàm kiểm tra điều kiện
-});
-
+// Gọi hàm checkTemperature mỗi khi giá trị của trường nhập liệu 'tempset' thay đổi
 document.getElementById('tempset').addEventListener('change', function() {
     checkcheck(); // Gọi hàm kiểm tra điều kiện
 });
-
-// document.getElementById('nhietdodaura').addEventListener('change', function() {
-//     checkcheck(); // Gọi hàm kiểm tra điều kiện
-// });
-// function checkTemperature(TempOut, setVal, tempsetVal) {
-//     var warningElement = document.getElementById('canhbaodoam');
-
-//     if (TempOut >= setVal || TempOut >= tempsetVal) {
-//         warningElement.textContent = 'Nhiệt độ chưa đạt yêu cầu';
-//         warningElement.style.color = 'red';
-//         warningElement.classList.add('blink');
-//     }else {
-//         warningElement.textContent = 'Nhiệt độ đạt yêu cầu';
-//         warningElement.style.color = 'red';
-//         warningElement.classList.add('blink');
-//     }
-// }
-// // Gọi hàm checkHumidity mỗi khi giá trị của setVal thay đổi
-// database.ref("Monitor/Temperature Room/data").on("value", function(snapshot){
-//     var TempOut = parseFloat(snapshot.val());
-//     // Lấy giá trị của 'Set_Point' từ Firebase
-//     database.ref("Control/set point ao1").once("value", function(snapshot){
-//         var setVal = snapshot.val();
-//         database.ref("Control/set point ao1").once("value", function(snapshot){
-//             var tempsetVal = snapshot.val();
-//             document.getElementById("nhietdodaura").innerHTML = TempOut + " °C";
-//             checkTemperature(TempOut, setVal, tempsetVal)
-//         })
-//     })
-// })
-
-// function checkHumidity(HumOut) {
-//     var warningElement = document.getElementById('canhbaodoam');
-
-//     if (HumOut <= 50) {
-//         warningElement.textContent = 'Độ ẩm không khí thấp';
-//         warningElement.style.color = 'red';
-//         warningElement.classList.add('blink');
-//     } else if (HumOut > 50 && HumOut <= 70) {
-//         warningElement.textContent = 'Độ ẩm lý tưởng';
-//         warningElement.style.color = 'green';
-//         warningElement.classList.remove('blink');
-//     } else {
-//         warningElement.textContent = 'Độ ẩm không khí cao';
-//         warningElement.style.color = 'red';
-//         warningElement.classList.add('blink');
-//     }
-// }
-
-// // Gọi hàm checkHumidity mỗi khi giá trị của setVal thay đổi
-// database.ref("Monitor/Humidity Room/data").on("value", function(snapshot) {
-//     var HumOut = parseFloat(snapshot.val()); // Đảm bảo giá trị được parse sang số thực
-//     document.getElementById("doamdaura").textContent = HumOut + " %";
-
-//     checkHumidity(HumOut); // Gọi hàm kiểm tra điều kiện với giá trị độ ẩm
-// });
-
 
 // get CPS-A from firebase (auto update when data change)
 database.ref("Monitor/CPS-A/data").on("value", function(snapshot){
@@ -482,30 +372,27 @@ database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
     }
 })
 
-// get BYPASS from firebase (auto update when data change)
-// database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
-//     var bypass1 = snapshot.val();
-//     if(bypass1 >= 0 && bypass1 <= 100){
-//         valve3_1.style.display = "block";
-//         valve3_2.style.display = "block";
-//         valve3_3.style.display = "block";
-//         warning.style.display = "none"
-//         updateCircle_ngoai(bypass);
-//         updateCircle(bypass);
-//         document.getElementById("bypass_valve").innerHTML = "OPEN " + bypass + "%";
-//     }
-//     else{
-//         valve3_1.style.display = "none";
-//         valve3_2.style.display = "none";
-//         valve3_3.style.display = "none";
-//         warning.style.display = "block"
-//         updateCircle_ngoai(bypass);
-//         updateCircle(bypass);
-//         document.getElementById("bypass_valve").innerHTML = "OFF";
-//         document.getElementById("close_open_bypass").src = "hinh/off.png"; 
-//         document.getElementById("close_open_bypass_ngoai").src = "hinh/off.png";
-//     }
-// })
+// get SUPPLY from firebase (auto update when data change)
+database.ref("control/van1").on("value", function(snapshot){
+    var supply = snapshot.val();
+    if(supply==1){
+        valve1.style.display = "block";
+    }
+    else{
+        valve1.style.display = "none";
+    } 
+})
+
+// get RETURN from firebase (auto update when data change)
+database.ref("control/van2").on("value", function(snapshot){
+    var return1 = snapshot.val();
+    if(return1==1){
+        valve2.style.display = "block";
+    }
+    else{
+        valve2.style.display = "none";
+    }
+})
 
 // get BYPASS from firebase (auto update when data change)
 database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
@@ -560,31 +447,6 @@ document.getElementById('save').addEventListener('click', function(){
     }  
 });
 
-// database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
-//     var canhbao = snapshot.val();
-//     if (canhbao == 0 || canhbao == 1 ) {
-//         warning.style.display = "none"       
-//     }else{
-//         warning.style.display = "block"
-//     }
-// })
-
-var fanhead = document.getElementById("fanhead");
-var fanheadoff = document.getElementById("fanheadoff")
-var flow = document.getElementById("flow")
-database.ref("control/run cm").on("value", function(snapshot){
-    var fanandflow = snapshot.val();
-    if (fanandflow == 1 ) {
-        fanhead.style.display = "none"
-        fanheadoff.style.display = "block"   
-        flow.style.display = "none"       
-    }else{
-        fanhead.style.display = "block"
-        fanheadoff.style.display = "none" 
-        flow.style.display = "block"
-    }
-})
-
 //ĐƯA DỮ LIỆU SETPOINT TỪ FIREBASE VỀ HIỂN THỊ TRÊN KHUNG SETPOINT NHIỆT ĐỘ
 firebase.database().ref("control/set temp").on("value", (snapshot) => {
     var setpointValuetemphienthi = snapshot.val();
@@ -598,51 +460,6 @@ function updateSetpointDisplay(value) {
     setpointElement.value = value;
     setpointElement1.value = value;
 }
-
-// Lắng nghe sự kiện khi người dùng nhấn nút "Lưu"
-document.getElementById('write').addEventListener('click', function(){
-    // Lấy giá trị từ các input
-    var minVal = document.getElementById('Min_Value').value;
-    var maxVal = document.getElementById('Max_Value').value;
-    var setVal = document.getElementById('Set_Point').value;
-    var selectoveranable = document.getElementById('overenablebientan').value;
-    var overValueVal = document.getElementById('Over_Value').value;
-    var selectlock = document.getElementById('locklebientan').value;
-    // var selectrcm = document.getElementById('rcmlebientan').value;
-    var accVal = document.getElementById('ACC').value;
-    var decVal = document.getElementById('DEC').value;
-    var fanhead = document.getElementById("fanhead");
-    var fanheadoff = document.getElementById("fanheadoff")
-    var flow = document.getElementById("flow")
-    var getdata = document.getElementById("getdata")
-
-    // Gửi dữ liệu mới qua Firebase
-    database.ref("control").update({
-        "min ao1": minVal,
-        "max ao1": maxVal,
-        "set temp": setVal,
-        "over enable ao1" : selectoveranable,
-        "over value ao1": overValueVal,
-        "lock" : selectlock,
-        // "run cm" : selectrcm,
-        "acc": accVal,
-        "dec": decVal
-    });
-    //     if (selectrcm == 1) {
-    //     fanhead.style.display = "none"
-    //     fanheadoff.style.display = "block"   
-    //     flow.style.display = "none"
-    // } else {
-    //     fanhead.style.display = "block"
-    //     fanheadoff.style.display = "none" 
-    //     flow.style.display = "block"
-    // }
-    checkcheck()
-    getdata.style.display = "block" 
-    setTimeout(() => {
-        getdata.style.display = "none";
-        }, 3000);
-});
 
 // Lắng nghe sự kiện khi người dùng nhấn nút "Set"
 document.getElementById('set').addEventListener('click', function(){
@@ -671,7 +488,6 @@ document.getElementById('set').addEventListener('click', function(){
  var giamsatdongdien = document.getElementById("giamsatdongdien");
  var giamsattanso = document.getElementById("giamsattanso");
  var giamsattocdo = document.getElementById("giamsattocdo");
- var giamsatcongsuat = document.getElementById("giamsatcongsuat");
  var valve3_1 = document.getElementById("valve1");
  var valve1 = document.getElementById("valve2");
  var valve2 = document.getElementById("valve3");
@@ -684,11 +500,6 @@ document.getElementById('set').addEventListener('click', function(){
     }
     arr.push(newItem);
     return arr;
-}
-function open_sheet() {
-    var url = "https://docs.google.com/spreadsheets/d/154zyAhdDfyKneWNOv9_bp5fqNMzZWEHPLjCp-sjHbCk/edit#gid=0";
-    var target = "_blank";
-    window.open(url, target);   
 }
 function function_voltage() {        
     mohinh.style.display = "none";
@@ -735,16 +546,6 @@ function function_speed() {
     giamsatcongsuat.style.display = "none"      
 }
 
-function function_power() {        
-    mohinh.style.display = "none";
-    giamsatdienap.style.display = "none";
-    giamsatdongdien.style.display = "none";
-    giamsattanso.style.display = "none"
-    giamsattocdo.style.display = "none"  
-    giamsatcongsuat.style.display = "block"     
-    giamsatcongsuat.style.opacity = 1;
-}
-
 var khoaweb = document.getElementById("khoaweb")
 var moweb = document.getElementById("moweb")
 database.ref("Monitor/cam web/data").on("value", function(snapshot){
@@ -773,7 +574,7 @@ database.ref("Monitor/cam web/data").on("value", function(snapshot){
           });
     }
 })
-//-------------------------------------------Filter
+//-------------------------------------------Filter----------------------------------------
 var opts_filter = {
     angle: -0.2,
     lineWidth: 0.2,
@@ -822,49 +623,8 @@ var locSound = document.getElementById("loc_sound");
             canhbaolocban.style.display = "block";
             document.getElementById('textwarningloc').classList.add('blink');
             locSound.play();
-            console.log(locSound)
         }
     });
-// Thêm sự kiện 'ended' để phát lại âm thanh khi nó kết thúc
-// function playcanhbao(){
-//     locSound.addEventListener('ended', function() {
-//         locSound.currentTime = 0;
-//         locSound.play();
-//     });
-// }
-
-// // Khi giá trị filter_out thay đổi
-// database.ref("Monitor/CPS-A/data").on("value", function (snapshot) {
-//     filter_out = snapshot.val();   
-//     var target_filter = document.getElementById('gauge-filter');
-//     var ctx = target_filter.getContext('2d');
-//     var gauge_filter = new Gauge(target_filter).setOptions(opts_filter);
-//     gauge_filter.animationSpeed = 32;   
-//     gauge_filter.maxValue = 100; 
-//     gauge_filter.set(filter_out);
-
-//     if (filter_out <= 50 ) {
-//         document.getElementById('filter').textContent = 'Clean';
-//         document.getElementById('filter').style.color = 'green';
-//         document.getElementById('filter').classList.remove('blink');
-//         canhbaolocban.style.display = "none";
-//         locSound.pause(); // Dừng âm thanh khi bộ lọc sạch
-//         locSound.currentTime = 0;
-//     } else if(filter_out > 50 && filter_out <= 80) {
-//         document.getElementById('filter').textContent = 'Dirty';
-//         document.getElementById('filter').style.color = 'yellow';
-//         document.getElementById('filter').classList.remove('blink');
-//         canhbaolocban.style.display = "none";
-//         locSound.pause(); // Dừng âm thanh khi bộ lọc sạch
-//         locSound.currentTime = 0;
-//     } else{
-//         document.getElementById('filter').textContent = 'Very Dirty';
-//         document.getElementById('filter').style.color = 'red';
-//         document.getElementById('filter').classList.add('blink');
-//         canhbaolocban.style.display = "block";
-//         playcanhbao() // Phát âm thanh khi bộ lọc bẩn
-//     }
-// });
         
 //--------------------------------------------ĐIENAP------------------------
 var opts_voltage = {
@@ -1432,161 +1192,6 @@ var chartIntervalspeed, historyIntervalspeed;
             content_row_speed[14].innerHTML = time_speed[6];
             content_row_speed[15].innerHTML = value_speed[6] + " rpm";
         }
-// ----------------------------------------CONGSUAT---------------------------------------------------------
-var opts_power = {
-    angle: -0.2,
-    lineWidth: 0.2,
-    radiusScale: 1,
-    pointer: {
-        length: 0.6,
-        strokeWidth: 0.04,
-        color: '#000000'
-    },
-    renderTicks: false,
-    limitMax: false,
-    limitMin: false,
-    percentColors: [[0.0, "#a9d70b"], [0.50, "#f9c802"], [1.0, "#ff0000"]],
-    strokeColor: '#E0E0E0',
-    generateGradient: true
-};
-
-var power = document.getElementById('chart-power').getContext('2d');
-var chart_power = new Chart(power, {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [{
-            label: 'Power',
-            data: [],
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 3,
-            fill: false,
-            pointRadius: 0 
-        }]
-    },
-    options: {
-        responsive: true,
-        animation: {
-            duration: 0
-        },
-        scales: {
-            // x: {
-            //     type: 'time',
-            //     time: {
-            //         displayFormats: {
-            //             second: 'h:mm:ss a'
-            //         }
-            //     }
-            // },
-            y: {
-                min: 0,
-                max: 1000,
-                ticks: {
-                    stepSize: 100
-                }
-            }
-        }
-    }
-});
-
-var content_row_power = document.querySelectorAll(".content-row-power");
-var time_power = [];
-var value_power = [];
-var j = 0;
-var power_out = 0;
-    
-// Đảm bảo rằng setInterval chỉ được tạo một lần
-var chartIntervalpower, historyIntervalpower;
-    database.ref("Monitor/Power/data").on("value", function (snapshot) {
-        //----------------------------- Gauge ----------------------------
-        power_out = snapshot.val();
-        document.getElementById("power").innerHTML = power_out + " W";    
-        
-        var target_power = document.getElementById('gauge-power'); // your canvas element
-        var ctx = target_power.getContext('2d');
-        var gauge_power = new Gauge(target_power).setOptions(opts_power); // create sexy gauge!
-        gauge_power.animationSpeed = 32;
-    
-        gauge_power.maxValue = 1000; // set max gauge value
-        gauge_power.set(power_out);
-        //----------------------------- Chart ----------------------------
-        // Cập nhật biểu đồ ngay lập tức khi có dữ liệu mới
-        updateChartpower(power_out);
-        //----------------------------- Table ----------------------------
-        // Cập nhật dữ liệu lịch sử ngay lập tức khi có dữ liệu mới
-        updateHistoryDatapower(current_out);
-        // Bắt đầu cập nhật biểu đồ mỗi giây nếu chưa có
-        if (!chartIntervalpower) {
-            chartInterval = setInterval(() => {
-                updateChartpower(power_out);
-            }, 1000);
-        }
-        
-        // Bắt đầu cập nhật dữ liệu lịch sử mỗi giây nếu chưa có
-        if (!historyIntervalpower) {
-            historyInterval = setInterval(() => {
-                updateHistoryDatapower(power_out);
-            }, 1000);
-        }
-    });
-        //----------------------------- Chart ----------------------------
-    function updateChartpower(power_out) {
-        var time = new Date().toLocaleTimeString();
-        const data = getArr(chart_power.data.datasets[0].data, power_out);
-        const labels = getArr(chart_power.data.labels, time);
-        chart_power.data.labels = labels
-        chart_power.data.datasets[0].data = data
-        chart_power.update();
-    }   
-
-    function updateHistoryDatapower(power_out) {
-            var time_now = new Date();
-            if (j <= 6) {
-                time_power[j] = time_now.getHours() + ":" + time_now.getMinutes() + ":" + time_now.getSeconds();
-                value_power[j] = power_out;
-                j++;
-            }
-            else {
-                time_power[0] = time_power[1];
-                value_power[0] = value_power[1];
-                time_power[1] = time_power[2];
-                value_power[1] = value_power[2];
-                time_power[2] = time_power[3];
-                value_power[2] = value_power[3];
-                time_power[3] = time_power[4];
-                value_power[3] = value_power[4];
-                time_power[4] = time_power[5];
-                value_power[4] = value_power[5];
-                time_power[5] = time_power[6];
-                value_power[5] = value_power[6];
-                time_power[6] = time_now.getHours() + ":" + time_now.getMinutes() + ":" + time_now.getSeconds();
-                value_power[6] = power_out;
-            }
-            content_row_power[2].innerHTML = time_power[0];
-            content_row_power[3].innerHTML = value_power[0] + " W";
-            content_row_power[4].innerHTML = time_power[1];
-            content_row_power[5].innerHTML = value_power[1] + " W";
-            content_row_power[6].innerHTML = time_power[2];
-            content_row_power[7].innerHTML = value_power[2] + " W";
-            content_row_power[8].innerHTML = time_power[3];
-            content_row_power[9].innerHTML = value_power[3] + " W";
-            content_row_power[10].innerHTML = time_power[4];
-            content_row_power[11].innerHTML = value_power[4] + " W";
-            content_row_power[12].innerHTML = time_power[5];
-            content_row_power[13].innerHTML = value_power[5] + " W";
-            content_row_power[14].innerHTML = time_power[6];
-            content_row_power[15].innerHTML = value_power[6] + " W";
-        }
-     
-
-
-
-    
-    
-
-
-
 //-----------------------------------------------------------REPORT EXCEL-----------------------------------------------------------
 function exportVoltageToExcel() {
     // Prepare chart data
@@ -1722,38 +1327,4 @@ function exportSpeedToExcel() {
 
     // Save the workbook
     XLSX.writeFile(workbook, 'SpeedData.xlsx');
-}
-
-function exportPowerToExcel() {
-    // Prepare chart data
-    const chartData = chart_power.data.datasets[0].data;
-    const chartLabels = chart_power.data.labels;
-
-    // Prepare historical voltage data
-    const historyData = [];
-    for (let i = 0; i < 86400; i++) {
-        if (time_power[i] && value_power[i] !== undefined) {
-            historyData.push([time_power[i], value_power[i]]);
-        }
-    }
-
-    // Create a new workbook and worksheets
-    const workbook = XLSX.utils.book_new();
-
-    // Chart Data Worksheet
-    const chartDataWorksheet = XLSX.utils.aoa_to_sheet([
-        ['Time', 'Power'],
-        ...chartLabels.map((label, index) => [label, chartData[index]])
-    ]);
-    XLSX.utils.book_append_sheet(workbook, chartDataWorksheet, 'Chart Data');
-
-    // Historical Data Worksheet
-    const historyDataWorksheet = XLSX.utils.aoa_to_sheet([
-        ['Time', 'Power'],
-        ...historyData
-    ]);
-    XLSX.utils.book_append_sheet(workbook, historyDataWorksheet, 'Historical Data');
-
-    // Save the workbook
-    XLSX.writeFile(workbook, 'PowerData.xlsx');
 }

@@ -574,7 +574,9 @@ body{
 
 .controlmode .headermode_bms{
     color: white;
-    padding-left: 5px;   
+    padding-left: 5px;
+    justify-content: center;
+    text-align: center;   
 }
 
 .btncontrol{
@@ -593,19 +595,19 @@ body{
 
 .manual{
     position: absolute;
-    top: 120px;
+    top: 70px;
     left: 123px;
 }
 
 .off{
     position: absolute;
-    top: 120px;
+    top: 70px;
     left: 232px;
 }
 
 .auto{
     position: absolute;
-    top: 120px;
+    top: 70px;
     left: 358px;
 }
 
@@ -621,9 +623,9 @@ body{
 .tempset label{
     width: 150px;
     height: 35px;
-    font-size: 30px;
+    font-size: 24px;
     position: absolute;
-    top: 190px;
+    top: 140px;
     left: 10px;
 }
 
@@ -634,7 +636,7 @@ body{
     height: 35px;
     font-size: 32px;
     position: absolute;
-    top: 187px;
+    top: 137px;
     left: 150px;
 }
 
@@ -643,7 +645,65 @@ body{
     border-radius: 6px;
     padding: 4px 10px;  
     position: absolute;
-    top: 187px;
+    top: 137px;
+    left: 310px;
+    cursor: pointer;
+}
+.controlmode .overenable{
+    background: white;
+    border: 2px solid #074c95;
+    color: #074c95;
+    font-size: 30px; 
+    padding: 10px 0px 87px 0px; 
+    border-radius: 10px; 
+}
+
+.overenable .mot{
+    width: 200px;
+    height: 35px;
+    font-size: 24px;
+    position: absolute;
+    top: 197px;
+    left: 10px;
+}
+
+.overenable .overenablebientan {
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 150px;
+    height: 35px;
+    font-size: 25px;
+    position: absolute;
+    top: 190px;
+    left: 150px;
+}
+
+.overenable .hai{
+    width: 200px;
+    height: 35px;
+    font-size: 24px;
+    position: absolute;
+    top: 240px;
+    left: 10px;
+}
+
+.overenable input{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 150px;
+    height: 35px;
+    font-size: 32px;
+    position: absolute;
+    top: 237px;
+    left: 150px;
+}
+
+.overenable button{
+    font-size: 20px;
+    border-radius: 6px;
+    padding: 4px 10px;  
+    position: absolute;
+    top: 237px;
     left: 310px;
     cursor: pointer;
 }
@@ -1109,7 +1169,7 @@ body{
 
 .modal_inner_fan{  
     width: 1200px;
-    height: 800px;
+    height: 400px;
     background: white;
     border-radius: 10px;
     overflow: hidden;
@@ -1171,7 +1231,7 @@ body{
     height: 150px;
     display: inline-block;
     vertical-align: top;
-    /* margin: 0 2.5% ; */
+    margin: 0 5% ;
     text-align: center;
     justify-content: center;
     border-radius: 20px;
@@ -1328,10 +1388,6 @@ body{
     padding-top: 5px;
 }
 
-.icon-para-monitor_power{
-    width: 60px;
-    padding-top: 5px;
-}
 
 .value-para-monitor{
     font-size: 30px;
@@ -1392,14 +1448,6 @@ body{
 }
 
 .content-row-speed{
-    padding: 5px 10px;
-    font-size: 15px;
-    width: 500px;
-    text-align: center;
-    
-}
-
-.content-row-power{
     padding: 5px 10px;
     font-size: 15px;
     width: 500px;
