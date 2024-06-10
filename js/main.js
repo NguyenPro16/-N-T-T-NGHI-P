@@ -24,6 +24,22 @@ const firebaseConfig = {
 setTimeout(function() {
     function_gsdk();
 }, 5000);
+// -----------------modal_valve_bypass-------------------------
+var btnopen_bypass = document.querySelector('.open_modal_btnbypass');
+var modal_bypass = document.querySelector('.modalbypass');
+var iconclose_bypass = document.querySelector('.modalbypass_header i');
+
+function toggleModalBypass() {
+    modal_bypass.classList.toggle('hide');
+}
+
+btnopen_bypass.addEventListener('click', toggleModalBypass);
+iconclose_bypass.addEventListener('click', toggleModalBypass);
+modal_bypass.addEventListener('click', function(e) {
+    if (e.target == e.currentTarget) {
+        toggleModalBypass()
+    }
+})
 // -----------------modal_valve -------------------------
 var btnsopen = document.querySelectorAll('.open_modal_btn');
 var modal = document.querySelector('.modal');
@@ -41,22 +57,6 @@ iconclose.addEventListener('click', toggleModal);
 modal.addEventListener('click', function(e) {
     if (e.target == e.currentTarget) {
         toggleModal();
-    }
-})
-// -----------------modal_valve_bypass-------------------------
-var btnopen_bypass = document.querySelector('.open_modal_btnbypass');
-var modal_bypass = document.querySelector('.modalbypass');
-var iconclose_bypass = document.querySelector('.modalbypass_header i');
-
-function toggleModalBypass() {
-    modal_bypass.classList.toggle('hide');
-}
-
-btnopen_bypass.addEventListener('click', toggleModalBypass);
-iconclose_bypass.addEventListener('click', toggleModalBypass);
-modal_bypass.addEventListener('click', function(e) {
-    if (e.target == e.currentTarget) {
-        toggleModalBypass()
     }
 })
 // -------------------------modal_fan-------------------------------------
@@ -483,29 +483,45 @@ database.ref("Monitor/Status Valve 2/data").on("value", function(snapshot){
 })
 
 // get BYPASS from firebase (auto update when data change)
+// database.ref("control/over value ao2").on("value", function(snapshot){
+//     var bypass1 = snapshot.val();
+//     if(bypass1 >= 0 && bypass1 <= 100){
+//         valve3_1.style.display = "block";
+//         valve3_2.style.display = "block";
+//         valve3_3.style.display = "block";
+//         warning.style.display = "none"
+//         updateCircle_ngoai(bypass);
+//         updateCircle(bypass);
+//         document.getElementById("bypass_valve").innerHTML = "OPEN " + bypass + "%";
+//     }
+//     else{
+//         valve3_1.style.display = "none";
+//         valve3_2.style.display = "none";
+//         valve3_3.style.display = "none";
+//         warning.style.display = "block"
+//         updateCircle_ngoai(bypass);
+//         updateCircle(bypass);
+//         document.getElementById("bypass_valve").innerHTML = "OFF";
+//         document.getElementById("close_open_bypass").src = "hinh/off.png"; 
+//         document.getElementById("close_open_bypass_ngoai").src = "hinh/off.png";
+//     }
+// })
+
+// get BYPASS from firebase (auto update when data change)
 database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
-    var bypass1 = snapshot.val();
-    if(bypass1 == 1 || bypass1 == 3){
+    var bypass = snapshot.val();
+    if(bypass > 0 && bypass <= 100){
         valve3_1.style.display = "block";
         valve3_2.style.display = "block";
         valve3_3.style.display = "block";
-    }
-    else{
-        valve3_1.style.display = "none";
-        valve3_2.style.display = "none";
-        valve3_3.style.display = "none";
-    }
-})
-
-// get BYPASS from firebase (auto update when data change)
-database.ref("control/over value ao2").on("value", function(snapshot){
-    var bypass = snapshot.val();
-    if(bypass > 0 && bypass <= 100){
         updateCircle_ngoai(bypass);
         updateCircle(bypass);
         document.getElementById("bypass_valve").innerHTML = "OPEN " + bypass + "%";
     }
     else if(bypass == 0){
+        valve3_1.style.display = "none";
+        valve3_2.style.display = "none";
+        valve3_3.style.display = "none";
         updateCircle_ngoai(bypass);
         updateCircle(bypass);
         document.getElementById("bypass_valve").innerHTML = "OFF";
@@ -513,7 +529,6 @@ database.ref("control/over value ao2").on("value", function(snapshot){
         document.getElementById("close_open_bypass_ngoai").src = "hinh/off.png";
     }   
 })
-
     function updateCircle_ngoai(value) {
         var fill_ngoai = document.getElementById("fill_ngoai");
         fill_ngoai.style.height = value + "%";
@@ -529,42 +544,30 @@ document.getElementById('save').addEventListener('click', function(){
     var bypassVal = document.getElementById('giatribypass').value;
     // Gửi dữ liệu mới qua Firebase
     if (bypassVal >= 15 && bypassVal <= 100) {
-        database.ref("Monitor/Status Van Bypass").update({
-            "data": 1,
-        });
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
         warning.style.display = "none"
     } else if(bypassVal > 0 && bypassVal < 15) {
-        database.ref("Monitor/Status Van Bypass").update({
-            "data": 3,
-        });
         warning.style.display = "block"       
     }else if(bypassVal == 0) {
-        database.ref("Monitor/Status Van Bypass").update({
-            "data": 0,
-        });
         database.ref("control").update({
             "over value ao2": bypassVal,
         });
         warning.style.display = "none"       
     }else{
-        database.ref("Monitor/Status Van Bypass").update({
-            "data": 3,
-        });
         warning.style.display = "block"      
     }  
 });
 
-database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
-    var canhbao = snapshot.val();
-    if (canhbao == 0 || canhbao == 1 ) {
-        warning.style.display = "none"       
-    }else{
-        warning.style.display = "block"
-    }
-})
+// database.ref("Monitor/Status Van Bypass/data").on("value", function(snapshot){
+//     var canhbao = snapshot.val();
+//     if (canhbao == 0 || canhbao == 1 ) {
+//         warning.style.display = "none"       
+//     }else{
+//         warning.style.display = "block"
+//     }
+// })
 
 var fanhead = document.getElementById("fanhead");
 var fanheadoff = document.getElementById("fanheadoff")
