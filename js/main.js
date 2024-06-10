@@ -676,7 +676,7 @@ document.getElementById('set').addEventListener('click', function(){
  var valve3_2 = document.getElementById("valve5");
 
  function getArr(arr, newItem) {
-    if (arr.length >= 180) {
+    if (arr.length >= 3600) {
         arr.shift();
     }
     arr.push(newItem);
@@ -1585,7 +1585,7 @@ var chartIntervalpower, historyIntervalpower;
 
 
 //-----------------------------------------------------------REPORT EXCEL-----------------------------------------------------------
-function exportToExcel() {
+function exportVoltageToExcel() {
     // Prepare chart data
     const chartData = chart_voltage.data.datasets[0].data;
     const chartLabels = chart_voltage.data.labels;
@@ -1619,5 +1619,138 @@ function exportToExcel() {
     XLSX.writeFile(workbook, 'VoltageData.xlsx');
 }
 
-// Add an event listener to the export button (assuming there's a button with id 'export-button')
-document.getElementById('export-button').addEventListener('click', exportToExcel);
+function exportCurrentToExcel() {
+    // Prepare chart data
+    const chartData = chart_current.data.datasets[0].data;
+    const chartLabels = chart_current.data.labels;
+
+    // Prepare historical voltage data
+    const historyData = [];
+    for (let i = 0; i < 86400; i++) {
+        if (time_current[i] && value_current[i] !== undefined) {
+            historyData.push([time_current[i], value_current[i]]);
+        }
+    }
+
+    // Create a new workbook and worksheets
+    const workbook = XLSX.utils.book_new();
+
+    // Chart Data Worksheet
+    const chartDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Current'],
+        ...chartLabels.map((label, index) => [label, chartData[index]])
+    ]);
+    XLSX.utils.book_append_sheet(workbook, chartDataWorksheet, 'Chart Data');
+
+    // Historical Data Worksheet
+    const historyDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Current'],
+        ...historyData
+    ]);
+    XLSX.utils.book_append_sheet(workbook, historyDataWorksheet, 'Historical Data');
+
+    // Save the workbook
+    XLSX.writeFile(workbook, 'CurrentData.xlsx');
+}
+
+function exportFrequencyToExcel() {
+    // Prepare chart data
+    const chartData = chart_frequency.data.datasets[0].data;
+    const chartLabels = chart_frequency.data.labels;
+
+    // Prepare historical voltage data
+    const historyData = [];
+    for (let i = 0; i < 86400; i++) {
+        if (time_frequency[i] && value_frequency[i] !== undefined) {
+            historyData.push([time_frequency[i], value_frequency[i]]);
+        }
+    }
+
+    // Create a new workbook and worksheets
+    const workbook = XLSX.utils.book_new();
+
+    // Chart Data Worksheet
+    const chartDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Frequency'],
+        ...chartLabels.map((label, index) => [label, chartData[index]])
+    ]);
+    XLSX.utils.book_append_sheet(workbook, chartDataWorksheet, 'Chart Data');
+
+    // Historical Data Worksheet
+    const historyDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Frequency'],
+        ...historyData
+    ]);
+    XLSX.utils.book_append_sheet(workbook, historyDataWorksheet, 'Historical Data');
+
+    // Save the workbook
+    XLSX.writeFile(workbook, 'FrequencyData.xlsx');
+}
+
+function exportSpeedToExcel() {
+    // Prepare chart data
+    const chartData = chart_speed.data.datasets[0].data;
+    const chartLabels = chart_speed.data.labels;
+
+    // Prepare historical voltage data
+    const historyData = [];
+    for (let i = 0; i < 86400; i++) {
+        if (time_speed[i] && value_speed[i] !== undefined) {
+            historyData.push([time_speed[i], value_speed[i]]);
+        }
+    }
+
+    // Create a new workbook and worksheets
+    const workbook = XLSX.utils.book_new();
+
+    // Chart Data Worksheet
+    const chartDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Speed'],
+        ...chartLabels.map((label, index) => [label, chartData[index]])
+    ]);
+    XLSX.utils.book_append_sheet(workbook, chartDataWorksheet, 'Chart Data');
+
+    // Historical Data Worksheet
+    const historyDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Speed'],
+        ...historyData
+    ]);
+    XLSX.utils.book_append_sheet(workbook, historyDataWorksheet, 'Historical Data');
+
+    // Save the workbook
+    XLSX.writeFile(workbook, 'SpeedData.xlsx');
+}
+
+function exportPowerToExcel() {
+    // Prepare chart data
+    const chartData = chart_power.data.datasets[0].data;
+    const chartLabels = chart_power.data.labels;
+
+    // Prepare historical voltage data
+    const historyData = [];
+    for (let i = 0; i < 86400; i++) {
+        if (time_power[i] && value_power[i] !== undefined) {
+            historyData.push([time_power[i], value_power[i]]);
+        }
+    }
+
+    // Create a new workbook and worksheets
+    const workbook = XLSX.utils.book_new();
+
+    // Chart Data Worksheet
+    const chartDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Power'],
+        ...chartLabels.map((label, index) => [label, chartData[index]])
+    ]);
+    XLSX.utils.book_append_sheet(workbook, chartDataWorksheet, 'Chart Data');
+
+    // Historical Data Worksheet
+    const historyDataWorksheet = XLSX.utils.aoa_to_sheet([
+        ['Time', 'Power'],
+        ...historyData
+    ]);
+    XLSX.utils.book_append_sheet(workbook, historyDataWorksheet, 'Historical Data');
+
+    // Save the workbook
+    XLSX.writeFile(workbook, 'PowerData.xlsx');
+}
