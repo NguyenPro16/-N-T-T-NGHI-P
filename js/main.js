@@ -139,6 +139,8 @@ database.ref("Monitor/TT Auto/data").on("value", function(snapshot){
 database.ref("control/manual").on("value", function(snapshot){
     var manualValcontrol = snapshot.val();
     if(manualValcontrol==1){
+        document.querySelectorAll('.open_modal_btn').disabled = false
+        document.querySelector(".open_modal_btnbypass").disabled = false
         document.getElementById("overenablebientan").disabled = false 
         document.getElementById("Over_Value").disabled = false
         document.getElementById("setoverenable").disabled = false
